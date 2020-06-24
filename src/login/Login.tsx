@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, TextField, Typography, Box } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import { useHistory } from 'react-router-dom';
 
 interface IState {
   email: string,
@@ -9,128 +10,104 @@ interface IState {
   message: string,
 }
 
-export default class Login extends React.Component<{}, IState> {
-  constructor(props: Readonly<{}>) {
-    super(props);
+export default function () {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
 
-    this.state = {
-      email: '',
-      password: '',
-      submitting: false,
-      message: ''
-    }
+  const history = useHistory();
 
-    this.changeEmail = this.changeEmail.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-    this.login = this.login.bind(this);
-    this.canSubmit = this.canSubmit.bind(this);
+  function canSubmit() {
+    return (submitting) ? false : email !== '' && password !== '';
   }
 
-  private changeEmail(event: any) {
-    this.setState({ email: event.target.value });
-  }
-
-  private changePassword(event: any) {
-    this.setState({ password: event.target.value });
-  }
-
-  private canSubmit() {
-    return (this.state.submitting) ? false : this.state.email !== '' && this.state.password !== '';
-  }
-
-  private async login(event: any) {
+  async function login(event: any) {
     if (event && event.type !== 'click' && event.key !== 'Enter') return;
-    if (this.state.email === '' || this.state.password === '') return;
+    if (email === '' || password === '') return;
 
-    this.setState({
-      submitting: true,
-      message: ''
-    });
+    setSubmitting(true);
+    setMessage('');
 
     let response = await fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: this.state.email, password: this.state.password })
+      body: JSON.stringify({ email: email, password: password })
     });
 
     let data = await response.json();
 
-    this.setState({
-      submitting: false,
-    });
+    setSubmitting(false);
 
     if (!data.token) {
-      this.setState({
-        message: data.message,
-      });
+      setMessage(data.message);
     } else {
-      console.log(data.token);
+      history.push('/');
     }
   }
 
-  public render() {
-    let error;
-    if (this.state.message) {
-      error = <Alert severity="error">{this.state.message}</Alert>
-    }
+  let error;
 
-    return (
-      <Container maxWidth="xs" component="main" >
-
-        <Box pt={5} pb={1}>
-          <Typography component="h1" variant="h5" >
-            Sign in
-          </Typography>
-        </Box>
-
-        {error}
-
-        <Box>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoFocus
-            value={this.state.email}
-            onChange={this.changeEmail}
-            onKeyPress={this.login}
-            disabled={this.state.submitting}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            value={this.state.password}
-            onChange={this.changePassword}
-            onKeyPress={this.login}
-            disabled={this.state.submitting}
-          />
-        </Box>
-
-        <Box pt={1}>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={this.login}
-            disabled={!this.canSubmit()}
-          >
-            Sign In
-          </Button>
-        </Box>
-      </Container>
-    );
+  if (message) {
+    error = <Alert severity="error">{message}</Alert>
   }
+
+  return (
+    <Container maxWidth="xs" component="main" >
+      <Box pt={5} pb={1}>
+        <Typography component="h1" variant="h5" >
+          Sign in
+        </Typography>
+      </Box>
+
+      {error}
+
+      <Box>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoFocus
+          value={email}
+          onChange={event => setEmail(event.target.value)}
+          onKeyPress={login}
+          disabled={submitting}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+          onKeyPress={login}
+          disabled={submitting}
+        />
+      </Box>
+
+      <Box pt={1}>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          onClick={login}
+          disabled={!canSubmit()}
+        >
+          Sign In
+        </Button>
+      </Box>
+    </Container>
+  );
+
 }
