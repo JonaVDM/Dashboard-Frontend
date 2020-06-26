@@ -7,6 +7,7 @@ import {
 
 import Home from './home/Home';
 import Login from './login/Login';
+import NoMatch from './no-match/NoMatch';
 
 import { loadToken } from './redux/actions';
 import { connect } from 'react-redux';
@@ -25,6 +26,9 @@ function App({ dispatch }: Props) {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="*">
+          <NoMatch />
         </Route>
       </Switch>
     </Router>
