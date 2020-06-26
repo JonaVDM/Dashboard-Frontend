@@ -2,48 +2,37 @@ import React, { useState } from 'react';
 import { Button, Container, TextField, Typography, Box } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useHistory } from 'react-router-dom';
-import { setToken } from '../redux/actions';
 import { connect } from 'react-redux';
+import { login } from '../redux/actions';
+import { RootState } from '../redux/reducers';
 
 interface Props {
-  dispatch: any,
+  requesting: boolean,
+  signIn: any
 }
 
-function Login({ dispatch }: Props) {
+function Login({ requesting, signIn }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
   const history = useHistory();
 
   function canSubmit() {
-    return (submitting) ? false : email !== '' && password !== '';
+    return (requesting) ? false : email !== '' && password !== '';
   }
 
   async function login(event: any) {
     if (event && event.type !== 'click' && event.key !== 'Enter') return;
     if (email === '' || password === '') return;
 
-    setSubmitting(true);
     setMessage('');
 
-    let response = await fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: email, password: password })
-    });
+    let data = await signIn(email, password);
 
-    let data = await response.json();
-
-    setSubmitting(false);
-
-    if (!data.token) {
+    if (!data.login) {
       setMessage(data.message);
     } else {
-      dispatch(setToken(data.token));
       history.push('/');
     }
   }
@@ -77,7 +66,7 @@ function Login({ dispatch }: Props) {
           value={email}
           onChange={event => setEmail(event.target.value)}
           onKeyPress={login}
-          disabled={submitting}
+          disabled={requesting}
         />
         <TextField
           variant="outlined"
@@ -91,7 +80,7 @@ function Login({ dispatch }: Props) {
           value={password}
           onChange={event => setPassword(event.target.value)}
           onKeyPress={login}
-          disabled={submitting}
+          disabled={requesting}
         />
       </Box>
 
@@ -111,4 +100,17 @@ function Login({ dispatch }: Props) {
   );
 }
 
-export default connect()(Login);
+function mapState(state: RootState) {
+  return {
+    requesting: state.auth.requesting,
+  }
+};
+
+function mapDispatch(dispatch: any) {
+  return {
+    signIn: async (email: string, password: string) =>
+      await dispatch(login(email, password))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Login);
