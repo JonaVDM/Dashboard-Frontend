@@ -1,9 +1,10 @@
 import React from 'react';
+import { Container, Typography } from '@material-ui/core';
 
 export default function () {
   return (
-    <div className="App">
-      <h1>Hi</h1>
-    </div>
+    <Container>
+      <Typography component="h1" variant="h2">Home Page</Typography>
+    </Container>
   );
 }
