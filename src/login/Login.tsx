@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Button, Container, TextField, Typography, Box } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useHistory } from 'react-router-dom';
+import { setToken } from '../redux/actions';
+import { connect } from 'react-redux';
 
-interface IState {
-  email: string,
-  password: string,
-  submitting: boolean,
-  message: string,
+interface Props {
+  dispatch: any,
 }
 
-export default function () {
+function Login({ dispatch }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -44,6 +43,7 @@ export default function () {
     if (!data.token) {
       setMessage(data.message);
     } else {
+      dispatch(setToken(data.token));
       history.push('/');
     }
   }
@@ -109,5 +109,6 @@ export default function () {
       </Box>
     </Container>
   );
-
 }
+
+export default connect()(Login);

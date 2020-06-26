@@ -8,7 +8,15 @@ import {
 import Home from './home/Home';
 import Login from './login/Login';
 
-export default function () {
+import { loadToken } from './redux/actions';
+import { connect } from 'react-redux';
+
+interface Props {
+  dispatch: any,
+}
+
+function App({ dispatch }: Props) {
+  dispatch(loadToken());
   return (
     <Router>
       <Switch>
@@ -22,3 +30,5 @@ export default function () {
     </Router>
   );
 }
+
+export default connect()(App);
