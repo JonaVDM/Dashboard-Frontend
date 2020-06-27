@@ -3,6 +3,14 @@ import * as actions from '../actions/types';
 const initialState = {
   token: '',
   requesting: false,
+  user: {
+    name: '',
+    email: '',
+    role: {
+      permissions: [],
+      role: '',
+    }
+  }
 };
 
 export default function(state = initialState, action: any) {
@@ -19,6 +27,13 @@ export default function(state = initialState, action: any) {
         token: token,
         requesting: false,
       });
+    }
+
+    case actions.SET_USER: {
+      const user = action.payload;
+      return Object.assign({}, state, {
+        user: user,
+      })
     }
 
     default: {

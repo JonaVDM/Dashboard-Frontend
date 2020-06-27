@@ -2,18 +2,27 @@ import React from 'react';
 
 import Routes from './routes/Routes';
 
-import { loadToken } from './redux/actions';
+import { loadToken, loadUser } from './redux/actions';
 import { connect } from 'react-redux';
 
 interface Props {
-  dispatch: any,
+  loadToken: any,
+  loadUser: any
 }
 
-function App({ dispatch }: Props) {
-  dispatch(loadToken());
+function App({ loadToken, loadUser }: Props) {
+  loadToken();
+  loadUser();
   return (
     <Routes />
   );
 }
 
-export default connect()(App);
+function mapDispatch(dispatch: any) {
+  return {
+    loadToken: () => dispatch(loadToken()),
+    loadUser: () => dispatch(loadUser())
+  }
+}
+
+export default connect(null, mapDispatch)(App);
