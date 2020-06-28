@@ -17,9 +17,10 @@ export function loadToken() {
   }
 }
 
-function requestLogIn() {
+function requestLogIn(status: boolean) {
   return {
     type: actions.REQUEST_LOG_IN,
+    payload: status
   }
 }
 
@@ -32,7 +33,7 @@ function setUser(user: any) {
 
 export function login(email: string, password: string) {
   return async function (dispatch: any) {
-    dispatch(requestLogIn());
+    dispatch(requestLogIn(true));
     let response = await fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -45,9 +46,10 @@ export function login(email: string, password: string) {
 
     if (data.token) {
       dispatch(setToken(data.token));
-      loadUser();
+      dispatch(loadUser());
       return { login: true }
     } else {
+      dispatch(requestLogIn(false));
       return { login: false, message: data.message }
     }
   }
@@ -66,7 +68,8 @@ export function loadUser() {
     const data = await response.json();
 
     if (data.error) {
-      console.log('error');
+      // Token is probably expired, remove it.
+      dispatch(setToken(''));
     } else {
       dispatch(setUser(data.user));
     }

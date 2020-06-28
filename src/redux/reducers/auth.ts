@@ -17,7 +17,7 @@ export default function(state = initialState, action: any) {
   switch (action.type) {
     case actions.REQUEST_LOG_IN: {
       return Object.assign({}, state, {
-        requesting: true,
+        requesting: action.payload,
       });
     }
 
@@ -33,7 +33,7 @@ export default function(state = initialState, action: any) {
       const user = action.payload;
       return Object.assign({}, state, {
         user: user,
-      })
+      });
     }
 
     default: {
