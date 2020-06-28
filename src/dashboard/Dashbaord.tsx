@@ -9,7 +9,10 @@ import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import { Lock } from '@material-ui/icons';
 import ListItemText from '@material-ui/core/ListItemText';
+import { connect } from 'react-redux';
+import { logout } from '../redux/actions'
 
 const mainListItems = (
   <div>
@@ -19,7 +22,6 @@ const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-
   </div>
 );
 
@@ -105,20 +107,31 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  children?: any
+  children?: any,
+  logout: any,
 }
 
-export default function Dashboard({ children }: Props) {
+function Dashboard({ children, logout }: Props) {
+  function signOut() {
+    logout()
+  }
+
   const classes = useStyles();
-  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <Drawer
         variant="permanent"
       >
-        <Divider />
         <List>{mainListItems}</List>
+        <Divider />
+        <ListItem button onClick={signOut}>
+          <ListItemIcon>
+            <Lock />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
       </Drawer>
       <main className={classes.content}>
         <Container maxWidth="lg" className={classes.container}>
@@ -130,3 +143,14 @@ export default function Dashboard({ children }: Props) {
     </div>
   );
 }
+
+
+
+function mapDispatch(dispatch: any) {
+  return {
+    logout: async () =>
+      await dispatch(logout()),
+  }
+}
+
+export default connect(null, mapDispatch)(Dashboard);
