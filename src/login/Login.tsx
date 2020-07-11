@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Button, Container, TextField, Typography, Box } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../redux/actions';
@@ -40,63 +38,64 @@ function Login({ requesting, signIn }: Props) {
   let error;
 
   if (message) {
-    error = <Alert severity="error">{message}</Alert>
+    error = <p>Error</p>;
   }
 
   return (
-    <Container maxWidth="xs" component="main" >
-      <Box pt={5} pb={1}>
-        <Typography component="h1" variant="h5" >
-          Sign in
-        </Typography>
-      </Box>
+    <h1>Login</h1>
+    // <Container maxWidth="xs" component="main" >
+    //   <Box pt={5} pb={1}>
+    //     <Typography component="h1" variant="h5" >
+    //       Sign in
+    //     </Typography>
+    //   </Box>
 
-      {error}
+    //   {error}
 
-      <Box>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoFocus
-          value={email}
-          onChange={event => setEmail(event.target.value)}
-          onKeyPress={login}
-          disabled={requesting}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          value={password}
-          onChange={event => setPassword(event.target.value)}
-          onKeyPress={login}
-          disabled={requesting}
-        />
-      </Box>
+    //   <Box>
+    //     <TextField
+    //       variant="outlined"
+    //       margin="normal"
+    //       required
+    //       fullWidth
+    //       id="email"
+    //       label="Email Address"
+    //       name="email"
+    //       autoFocus
+    //       value={email}
+    //       onChange={event => setEmail(event.target.value)}
+    //       onKeyPress={login}
+    //       disabled={requesting}
+    //     />
+    //     <TextField
+    //       variant="outlined"
+    //       margin="normal"
+    //       required
+    //       fullWidth
+    //       name="password"
+    //       label="Password"
+    //       type="password"
+    //       id="password"
+    //       value={password}
+    //       onChange={event => setPassword(event.target.value)}
+    //       onKeyPress={login}
+    //       disabled={requesting}
+    //     />
+    //   </Box>
 
-      <Box pt={1}>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          onClick={login}
-          disabled={!canSubmit()}
-        >
-          Sign In
-        </Button>
-      </Box>
-    </Container>
+    //   <Box pt={1}>
+    //     <Button
+    //       type="submit"
+    //       fullWidth
+    //       variant="contained"
+    //       color="primary"
+    //       onClick={login}
+    //       disabled={!canSubmit()}
+    //     >
+    //       Sign In
+    //     </Button>
+    //   </Box>
+    // </Container>
   );
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import Dashboard, { useStyles } from '../dashboard/Dashbaord';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import Dashboard from '../dashboard/Dashbaord';
 import { RootState } from '../redux/reducers';
 import { connect } from 'react-redux';
 
@@ -9,15 +8,10 @@ interface Props {
 }
 
 function Home({ name }: Props) {
-  const styles = useStyles();
 
   return (
     <Dashboard>
-      <Grid item sm={12}>
-        <Paper className={styles.paper}>
-          <Typography component="h3" variant="h3">Hi {name}</Typography>
-        </Paper>
-      </Grid>
+      <h1>Hello {name}</h1>
     </Dashboard>
   );
 }

@@ -75,3 +75,10 @@ export function loadUser() {
     }
   }
 }
+
+export function logout() {
+  return async function (dispatch: any) {
+    dispatch(setToken(''));
+    dispatch(setUser({}));
+  }
+}
