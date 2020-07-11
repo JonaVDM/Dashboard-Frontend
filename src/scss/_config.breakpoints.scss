@@ -1,0 +1,31 @@
+$xs-screen: 0px;
+$sm-screen: 640px;
+$md-screen: 768px;
+$lg-screen: 1024px;
+$xl-screen: 1200px;
+
+$xs-columns: 4;
+$sm-columns: 12;
+$md-columns: 12;
+$lg-columns: 12;
+$xl-columns: 12;
+
+$xs-spacing: 20px;
+$sm-spacing: 20px;
+$md-spacing: 30px;
+$lg-spacing: 50px;
+$xl-spacing: 60px;
+
+$xs-gutter: 20px;
+$sm-gutter: 20px;
+$md-gutter: 30px;
+$lg-gutter: 50px;
+$xl-gutter: 60px;
+
+$xs: 'only screen and (min-width: #{$xs-screen})';
+$sm: 'only screen and (min-width: #{$sm-screen})';
+$md: 'only screen and (min-width: #{$md-screen})';
+$lg: 'only screen and (min-width: #{$lg-screen})';
+$xl: 'only screen and (min-width: #{$xl-screen})';
+
+$grid-max-width: 1280px;
