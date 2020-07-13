@@ -1,17 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .h2 {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 
 .p {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 18px;
-    color: $black;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  color: $black;
 }

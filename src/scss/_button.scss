@@ -1,0 +1,13 @@
+.button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  background-color: $blue;
+  color: $white;
+
+  &--success {
+    background-color: $green;
+  }
+}

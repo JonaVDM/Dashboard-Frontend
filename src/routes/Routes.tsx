@@ -32,7 +32,7 @@ function Routes({ isLoggedIn }: Props): JSX.Element {
 
     routesEl.push(
       (
-        <Route exact paht={location} key={location} render={() => {
+        <Route exact path={location} key={location} render={() => {
           if (!isLoggedIn) {
             return (
               <Redirect to="/login"  />

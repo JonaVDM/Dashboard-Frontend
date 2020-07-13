@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../redux/actions';
 import { RootState } from '../redux/reducers';
+import { login } from '../redux/actions';
+import logo from '../assets/logo.png';
+import {TextField} from '../components/components';
 
 interface Props {
   requesting: boolean,
@@ -14,12 +15,6 @@ function Login({ requesting, signIn }: Props) {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const history = useHistory();
-
-  function canSubmit() {
-    return (requesting) ? false : email !== '' && password !== '';
-  }
-
   async function login(event: any) {
     if (event && event.type !== 'click' && event.key !== 'Enter') return;
     if (email === '' || password === '') return;
@@ -30,72 +25,36 @@ function Login({ requesting, signIn }: Props) {
 
     if (!data.login) {
       setMessage(data.message);
-    } else {
-      history.push('/');
     }
   }
 
   let error;
-
-  if (message) {
-    error = <p>Error</p>;
+  if (message !== '') {
+    error = <div>{message}</div>
   }
 
   return (
-    <h1>Login</h1>
-    // <Container maxWidth="xs" component="main" >
-    //   <Box pt={5} pb={1}>
-    //     <Typography component="h1" variant="h5" >
-    //       Sign in
-    //     </Typography>
-    //   </Box>
+    <div className="login">
+      <div className="login__container">
+        <img src={logo} alt="Logo" className="img" />
 
-    //   {error}
+        {error}
 
-    //   <Box>
-    //     <TextField
-    //       variant="outlined"
-    //       margin="normal"
-    //       required
-    //       fullWidth
-    //       id="email"
-    //       label="Email Address"
-    //       name="email"
-    //       autoFocus
-    //       value={email}
-    //       onChange={event => setEmail(event.target.value)}
-    //       onKeyPress={login}
-    //       disabled={requesting}
-    //     />
-    //     <TextField
-    //       variant="outlined"
-    //       margin="normal"
-    //       required
-    //       fullWidth
-    //       name="password"
-    //       label="Password"
-    //       type="password"
-    //       id="password"
-    //       value={password}
-    //       onChange={event => setPassword(event.target.value)}
-    //       onKeyPress={login}
-    //       disabled={requesting}
-    //     />
-    //   </Box>
+        <TextField
+          type="text"
+          label="Email"
+          onChange={(event) => setEmail(event.target.value)}
+        />
 
-    //   <Box pt={1}>
-    //     <Button
-    //       type="submit"
-    //       fullWidth
-    //       variant="contained"
-    //       color="primary"
-    //       onClick={login}
-    //       disabled={!canSubmit()}
-    //     >
-    //       Sign In
-    //     </Button>
-    //   </Box>
-    // </Container>
+        <TextField
+          type="password"
+          label="Password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+
+        <button className="button button--success" onClick={login}>Login</button>
+      </div>
+    </div>
   );
 }
 
