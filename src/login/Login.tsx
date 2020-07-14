@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers';
 import { login } from '../redux/actions';
 import logo from '../assets/logo.png';
-import {TextField} from '../components/components';
+import { TextField, Btn, Color } from '../components/components';
 
 interface Props {
   requesting: boolean,
@@ -15,7 +15,8 @@ function Login({ requesting, signIn }: Props) {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  async function login(event: any) {
+  async function login(event?: any) {
+    console.log('hi?');
     if (event && event.type !== 'click' && event.key !== 'Enter') return;
     if (email === '' || password === '') return;
 
@@ -52,7 +53,7 @@ function Login({ requesting, signIn }: Props) {
           onChange={(event) => setPassword(event.target.value)}
         />
 
-        <button className="button button--success" onClick={login}>Login</button>
+        <Btn text="Login" onClick={() => login()} color={Color.Primary}/>
       </div>
     </div>
   );

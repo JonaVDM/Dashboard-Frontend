@@ -1,0 +1,26 @@
+.btn {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  background-color: $default;
+  color: $white;
+
+  text-transform: uppercase;
+
+  &--disabled {
+    background-color: $disabled;
+    color: $gray-600;
+
+    cursor: default;
+  }
+
+  &--primary {
+    background-color: $primary;
+  }
+
+  &--success {
+    background-color: $success;
+  }
+}

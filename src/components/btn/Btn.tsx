@@ -3,15 +3,22 @@ import React from 'react';
 interface Props {
   text: string,
   onClick: () => void;
-  disabled: boolean,
-  color: string,
+  disabled?: boolean,
+  color?: Color,
 }
 
-export function Btn({text, onClick, disabled}: Props): JSX.Element {
+export enum Color {
+  Primary = 'primary',
+  Danger = 'danger',
+  Success = 'success'
+}
+
+export function Btn({text, onClick, disabled, color}: Props): JSX.Element {
   function className() {
     let name = "btn";
     if (disabled) return name.concat(` ${name}--disabled`);
-    return name;
+    if (!color) return name;
+    if (color === 'primary') return name.concat(` ${name}--primary`);
   }
 
   return (
