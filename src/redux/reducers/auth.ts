@@ -36,6 +36,10 @@ export default function(state = initialState, action: any) {
       });
     }
 
+    case actions.LOG_OUT: {
+      return Object.assign({}, state, initialState);
+    }
+
     default: {
       return state;
     }

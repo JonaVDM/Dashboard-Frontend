@@ -5,41 +5,64 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-
 import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers';
-
 import Home from '../home/Home';
 import Login from '../login/Login';
 import NoMatch from '../no-match/NoMatch';
+import Dashboard from '../dashboard/Dashbaord';
 
 interface Props {
-  isLoggedIn: boolean
+  isLoggedIn: boolean,
+  permissions: string[]
 }
 
-export const routes: { location: string, name: string, element: JSX.Element }[] = [
+interface RouteLink {
+  location: string,
+  element: JSX.Element,
+  requirements?: string[]
+}
+
+export const routes: RouteLink[] = [
   {
     location: '/',
-    name: 'Dashbaord',
     element: (<Home />)
+  },
+  {
+    location: '/users',
+    element: (<Dashboard>User page</Dashboard>),
+    requirements: ['user.read']
   },
 ];
 
-function Routes({ isLoggedIn }: Props): JSX.Element {
+function Routes({ isLoggedIn, permissions }: Props): JSX.Element {
   let routesEl: JSX.Element[] = [];
   for (const route of routes) {
     let { element, location } = route;
+
+    if (!permissions.includes('admin') && route.requirements) {
+      let allowed = false;
+      for (let requirement of route.requirements) {
+        const category = requirement.split('.')[0];
+        if (permissions.includes(requirement) ||
+          permissions.includes(category)) {
+          allowed = true;
+        }
+      }
+
+      if (!allowed) continue;
+    }
 
     routesEl.push(
       (
         <Route exact path={location} key={location} render={() => {
           if (!isLoggedIn) {
             return (
-              <Redirect to="/login"  />
+              <Redirect to="/login" />
             );
           }
           return element;
-        }}/>
+        }} />
       )
     );
   }
@@ -64,6 +87,7 @@ function Routes({ isLoggedIn }: Props): JSX.Element {
 function mapState(state: RootState) {
   return {
     isLoggedIn: state.auth.token !== '',
+    permissions: state.auth.user.role.permissions,
   }
 };
 
