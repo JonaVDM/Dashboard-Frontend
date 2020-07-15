@@ -22,4 +22,10 @@
 
     position: relative;
   }
+
+  &__logout {
+    @include media($md) {
+      display: none;
+    }
+  }
 }
