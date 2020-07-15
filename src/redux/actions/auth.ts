@@ -59,6 +59,8 @@ export function loadUser() {
   return async function (dispatch: any, getState: () => RootState) {
     const { token } = getState().auth;
 
+    if (!token) return;
+
     const response = await fetch('/api/me', {
       headers: {
         'x-token': token,
