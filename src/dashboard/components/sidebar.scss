@@ -28,4 +28,22 @@
       display: none;
     }
   }
+
+  &__icon {
+    color: $color-sidebar;
+    font-size: 30px;
+
+    padding-right: 20px;
+  }
+
+  &__link {
+    color: $color-sidebar;
+    text-decoration: none;
+
+    &-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  }
 }
