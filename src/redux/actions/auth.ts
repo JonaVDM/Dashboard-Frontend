@@ -67,9 +67,9 @@ export function loadUser() {
 
     const data = await response.json();
 
-    if (data.error) {
+    if (!data.user) {
       // Token is probably expired, remove it.
-      dispatch(setToken(''));
+      dispatch(logout());
     } else {
       dispatch(setUser(data.user));
     }
@@ -77,6 +77,7 @@ export function loadUser() {
 }
 
 export function logout() {
+  localStorage.clear();
   return {
     type: actions.LOG_OUT,
   }

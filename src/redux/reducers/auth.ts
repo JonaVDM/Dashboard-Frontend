@@ -5,11 +5,11 @@ const initialState = {
   requesting: false,
   user: {
     name: '',
-    email: '',
-    role: {
-      permissions: [],
-      role: '',
-    }
+    email: ''
+  },
+  role: {
+    permissions: [],
+    name: '',
   }
 };
 
@@ -31,13 +31,15 @@ export default function(state = initialState, action: any) {
 
     case actions.SET_USER: {
       const user = action.payload;
+      const { role } = user;
       return Object.assign({}, state, {
-        user: user,
+        user,
+        role
       });
     }
 
     case actions.LOG_OUT: {
-      return Object.assign({}, state, initialState);
+      return initialState;
     }
 
     default: {

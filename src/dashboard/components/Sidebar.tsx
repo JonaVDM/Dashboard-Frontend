@@ -95,7 +95,7 @@ function Sidebar({ expanded, logout, permissions }: Props): JSX.Element {
 
 function mapState(state: RootState) {
   return {
-    permissions: state.auth.user.role.permissions,
+    permissions: state.auth.role.permissions,
   }
 }
 

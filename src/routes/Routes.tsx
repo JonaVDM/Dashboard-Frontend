@@ -93,7 +93,7 @@ function Routes({ isLoggedIn, permissions }: Props): JSX.Element {
 function mapState(state: RootState) {
   return {
     isLoggedIn: state.auth.token !== '',
-    permissions: state.auth.user.role.permissions,
+    permissions: state.auth.role.permissions,
   }
 };
 

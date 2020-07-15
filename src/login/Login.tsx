@@ -15,8 +15,11 @@ function Login({ requesting, signIn }: Props) {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  function disabled(): boolean {
+    return false;
+  }
+
   async function login(event?: any) {
-    console.log('hi?');
     if (event && event.type !== 'click' && event.key !== 'Enter') return;
     if (email === '' || password === '') return;
 
@@ -53,7 +56,7 @@ function Login({ requesting, signIn }: Props) {
           onChange={(event) => setPassword(event.target.value)}
         />
 
-        <Btn text="Login" onClick={() => login()} color={Color.Primary}/>
+        <Btn text="Login" onClick={() => login()} color={Color.Primary} disabled={disabled()}/>
       </div>
     </div>
   );
