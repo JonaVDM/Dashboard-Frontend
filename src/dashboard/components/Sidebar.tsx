@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { logout } from '../../redux/actions';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RootState } from '../../redux/reducers';
 
 interface Props {
   expanded: boolean,
-  logout: any
+  logout: any,
+  permissions: string[]
 }
 
 interface Item {
@@ -22,10 +24,10 @@ interface Item {
   link: string,
 
   // The permission the user will need before entering the page
-  permissions?: string[],
+  requirements?: string[],
 }
 
-function Sidebar({ expanded, logout }: Props): JSX.Element {
+function Sidebar({ expanded, logout, permissions }: Props): JSX.Element {
   function className(): string {
     if (expanded) return 'sidebar sidebar--expanded';
     return 'sidebar';
@@ -38,8 +40,21 @@ function Sidebar({ expanded, logout }: Props): JSX.Element {
   function items(): JSX.Element[] {
     let items: JSX.Element[] = [];
     for (let link of links) {
+      if (!permissions.includes('admin') && link.requirements) {
+        let allowed = false;
+        for (let requirement of link.requirements) {
+          const category = requirement.split('.')[0];
+          if (permissions.includes(requirement) ||
+            permissions.includes(category)) {
+            allowed = true;
+          }
+        }
+
+        if (!allowed) continue;
+      }
+
       items.push(
-        <div className="sidebar__link-container">
+        <div className="sidebar__link-container" key={link.link}>
           <i className="material-icons sidebar__icon">{link.icon}</i>
           <Link className="sidebar__link" to={link.link}>{link.name}</Link>
         </div>
@@ -58,7 +73,7 @@ function Sidebar({ expanded, logout }: Props): JSX.Element {
       name: 'Users',
       link: '/users',
       icon: 'group',
-      permissions: ['user.read']
+      requirements: ['user.read']
     },
   ];
 
@@ -72,6 +87,12 @@ function Sidebar({ expanded, logout }: Props): JSX.Element {
   );
 }
 
+function mapState(state: RootState) {
+  return {
+    permissions: state.auth.user.role.permissions,
+  }
+}
+
 function mapDispatch(dispatch: any) {
   return {
     logout: async () =>
@@ -79,4 +100,4 @@ function mapDispatch(dispatch: any) {
   }
 }
 
-export default connect(null, mapDispatch)(Sidebar);
+export default connect(mapState, mapDispatch)(Sidebar);
