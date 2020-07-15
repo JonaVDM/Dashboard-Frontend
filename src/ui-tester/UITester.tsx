@@ -1,13 +1,18 @@
 import React from 'react';
 import Dashboard from '../dashboard/Dashbaord';
-import { Card, Sizes, Btn, Color } from '../components/components';
+import { Card, Sizes, Btn, Color, TextField } from '../components/components';
 
 function UITester(): JSX.Element {
   return (
     <Dashboard>
       <div className="grid">
         {/* Full width */}
-        <Card size={Sizes.full}>Grid layout - 1</Card>
+        <Card size={Sizes.full}>
+          Grid layout/Cards
+          <div>
+            1/1
+          </div>
+        </Card>
 
         {/* Three Quarter */}
         <Card size={Sizes.three_quarters}>3/4</Card>
@@ -41,6 +46,13 @@ function UITester(): JSX.Element {
             <Btn className="mar-right mar-bottom mar-top" color={Color.Danger}>Danger</Btn>
             <Btn className="mar-right mar-bottom mar-top" color={Color.Primary} disabled>Disabled</Btn>
           </div>
+        </Card>
+
+        <Card size={Sizes.full}>
+          TextFields
+          <TextField label="Password" type="password" className="pad-top"/>
+          <TextField label="Email" type="email" className="pad-top"/>
+          <TextField label="Text" type="text" className="pad-top"/>
         </Card>
       </div>
     </Dashboard>

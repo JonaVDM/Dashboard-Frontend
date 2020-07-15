@@ -50,12 +50,15 @@ function Login({ requesting, signIn }: Props) {
           type="text"
           label="Email"
           onChange={(event) => setEmail(event.target.value)}
+          onKeyPress={login}
         />
 
         <TextField
           type="password"
           label="Password"
           onChange={(event) => setPassword(event.target.value)}
+          onKeyPress={login}
+          className="mar-bottom mar-top"
         />
 
         <Btn onClick={() => login()} color={Color.Primary} disabled={disabled()}>Login</Btn>
