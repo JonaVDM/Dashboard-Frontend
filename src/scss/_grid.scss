@@ -1,0 +1,28 @@
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat($xs-columns, 1fr);
+  gap: $xs-gutter;
+
+  // overflow: scroll;
+
+  @include media($sm) {
+    grid-template-columns: repeat($sm-columns, 1fr);
+    gap: $sm-gutter;
+  }
+
+  @include media($md) {
+    grid-template-columns: repeat($md-columns, 1fr);
+    gap: $md-gutter;
+  }
+
+  @include media($lg) {
+    grid-template-columns: repeat($lg-columns, 1fr);
+    gap: $lg-gutter;
+  }
+
+  @include media($xl) {
+    grid-template-columns: repeat($xl-columns, 1fr);
+    gap: $xl-gutter;
+  }
+}

@@ -10,7 +10,8 @@ import { RootState } from '../redux/reducers';
 import Home from '../home/Home';
 import Login from '../login/Login';
 import NoMatch from '../no-match/NoMatch';
-import Dashboard from '../dashboard/Dashbaord';
+import UsersManager from '../users-manager/UsersManager';
+import UITester from '../ui-tester/UITester';
 
 interface Props {
   isLoggedIn: boolean,
@@ -30,8 +31,13 @@ export const routes: RouteLink[] = [
   },
   {
     location: '/users',
-    element: (<Dashboard>User page</Dashboard>),
+    element: (<UsersManager />),
     requirements: ['user.read']
+  },
+  {
+    location: '/grid',
+    element: (<UITester />),
+    requirements: ['admin']
   },
 ];
 

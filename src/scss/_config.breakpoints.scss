@@ -4,8 +4,8 @@ $md-screen: 768px;
 $lg-screen: 1024px;
 $xl-screen: 1200px;
 
-$xs-columns: 4;
-$sm-columns: 12;
+$xs-columns: 1;
+$sm-columns: 1;
 $md-columns: 12;
 $lg-columns: 12;
 $xl-columns: 12;
@@ -16,11 +16,11 @@ $md-spacing: 30px;
 $lg-spacing: 50px;
 $xl-spacing: 60px;
 
-$xs-gutter: 20px;
-$sm-gutter: 20px;
-$md-gutter: 30px;
-$lg-gutter: 50px;
-$xl-gutter: 60px;
+$xs-gutter: 10px;
+$sm-gutter: 10px;
+$md-gutter: 20px;
+$lg-gutter: 30px;
+$xl-gutter: 40px;
 
 $xs: 'only screen and (min-width: #{$xs-screen})';
 $sm: 'only screen and (min-width: #{$sm-screen})';

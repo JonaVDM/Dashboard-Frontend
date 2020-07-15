@@ -1,0 +1,116 @@
+.card {
+  grid-column: span 1;
+  background-color: $white;
+
+  padding: 15px;
+  border-radius: 4px;
+
+  &--full {
+    @include media($sm) {
+      grid-column: span $sm-columns;
+    }
+
+    @include media($md) {
+      grid-column: span $md-columns;
+    }
+
+    @include media($lg) {
+      grid-column: span $lg-columns;
+    }
+
+    @include media($xl) {
+      grid-column: span $xl-columns;
+    }
+  }
+
+  &--three-quarters {
+    @include media($sm) {
+      grid-column: span floor($sm-columns / 4) * 3;
+    }
+
+    @include media($md) {
+      grid-column: span floor($md-columns / 4) * 3;
+    }
+
+    @include media($lg) {
+      grid-column: span floor($lg-columns / 4) * 3;
+    }
+
+    @include media($xl) {
+      grid-column: span floor($xl-columns / 4) * 3;
+    }
+  }
+
+  &--two-thirds {
+    @include media($sm) {
+      grid-column: span floor($sm-columns / 3) * 2;
+    }
+
+    @include media($md) {
+      grid-column: span floor($md-columns / 3) * 2;
+    }
+
+    @include media($lg) {
+      grid-column: span floor($lg-columns / 3) * 2;
+    }
+
+    @include media($xl) {
+      grid-column: span floor($xl-columns / 3) * 2;
+    }
+  }
+
+
+  &--half {
+    @include media($sm) {
+      grid-column: span floor($sm-columns / 2);
+    }
+
+    @include media($md) {
+      grid-column: span floor($md-columns / 2);
+    }
+
+    @include media($lg) {
+      grid-column: span floor($lg-columns / 2);
+    }
+
+    @include media($xl) {
+      grid-column: span floor($xl-columns / 2);
+    }
+  }
+
+  &--third {
+    @include media($sm) {
+      grid-column: span floor($sm-columns / 3);
+    }
+
+    @include media($md) {
+      grid-column: span floor($md-columns / 3);
+    }
+
+    @include media($lg) {
+      grid-column: span floor($lg-columns / 3);
+    }
+
+    @include media($xl) {
+      grid-column: span floor($xl-columns / 3);
+    }
+  }
+
+  &--quarter {
+    @include media($sm) {
+      grid-column: span floor($sm-columns / 4);
+    }
+
+    @include media($md) {
+      grid-column: span floor($md-columns / 4);
+    }
+
+    @include media($lg) {
+      grid-column: span floor($lg-columns / 4);
+    }
+
+    @include media($xl) {
+      grid-column: span floor($xl-columns / 4);
+    }
+  }
+}

@@ -75,6 +75,12 @@ function Sidebar({ expanded, logout, permissions }: Props): JSX.Element {
       icon: 'group',
       requirements: ['user.read']
     },
+    {
+      name: 'UI Test',
+      link: '/grid',
+      icon: 'build',
+      requirements: ['admin']
+    },
   ];
 
   return (
