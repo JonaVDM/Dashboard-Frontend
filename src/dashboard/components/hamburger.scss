@@ -1,0 +1,13 @@
+.hamburger {
+  width: 35px;
+  height: 35px;
+
+  background-color: $white;
+
+  transition: .3s ease-in-out all;
+
+  &--active {
+    background-color: $success;
+    transform: rotate(225deg);
+  }
+}

@@ -1,0 +1,51 @@
+@import './components/hamburger.scss';
+@import './components/sidebar.scss';
+@import './components/header.scss';
+
+.dashboard {
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+
+  height: 100vh;
+  overflow: hidden;
+
+  @include media($md) {
+    grid-template-columns: auto 1fr;
+  }
+
+  &__header {
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 10;
+
+    @include media($md) {
+      grid-column: span 2;
+    }
+  }
+
+  &__sidebar {
+    grid-column: 1;
+    grid-row: 2;
+
+    width: 0;
+
+    z-index: 10;
+
+    @include media($md) {
+      width: 250px;
+    }
+  }
+
+  &__content {
+    padding: 10px;
+    grid-column: 1;
+    grid-row: 2;
+    z-index: 1;
+
+    @include media($md) {
+      grid-column: 2;
+    }
+  }
+}
