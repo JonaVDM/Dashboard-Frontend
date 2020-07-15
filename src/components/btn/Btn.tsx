@@ -19,6 +19,7 @@ export function Btn({text, onClick, disabled, color}: Props): JSX.Element {
     if (disabled) return name.concat(` ${name}--disabled`);
     if (!color) return name;
     if (color === 'primary') return name.concat(` ${name}--primary`);
+    if (color === 'danger') return name.concat(` ${name}--danger`);
   }
 
   return (

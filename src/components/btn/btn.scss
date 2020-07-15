@@ -8,6 +8,7 @@
   color: $white;
 
   text-transform: uppercase;
+  font-size: small;
 
   &--disabled {
     background-color: $disabled;
@@ -22,5 +23,9 @@
 
   &--success {
     background-color: $success;
+  }
+
+  &--danger {
+    background-color: $danger;
   }
 }

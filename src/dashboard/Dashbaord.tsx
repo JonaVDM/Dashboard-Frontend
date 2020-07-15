@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../redux/actions'
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 
 interface Props {
-  children?: any,
-  logout: any,
+  children?: any
 }
 
-function Dashboard({ children, logout }: Props) {
-  function signOut() {
-    logout()
-  }
-
+function Dashboard({ children }: Props) {
   let [expanded, setExpanded] = useState(false);
 
   return (
@@ -33,11 +27,4 @@ function Dashboard({ children, logout }: Props) {
   );
 }
 
-function mapDispatch(dispatch: any) {
-  return {
-    logout: async () =>
-      await dispatch(logout()),
-  }
-}
-
-export default connect(null, mapDispatch)(Dashboard);
+export default connect(null, null)(Dashboard);

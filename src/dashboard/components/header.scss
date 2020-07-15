@@ -21,4 +21,11 @@
       display: none;
     }
   }
+
+  &__logout {
+    display: none;
+    @include media($md) {
+      display: block;
+    }
+  }
 }
