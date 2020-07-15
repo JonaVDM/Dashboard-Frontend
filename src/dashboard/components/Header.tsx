@@ -25,7 +25,7 @@ function Header({ onNavToggle, isActive, logout }: Props): JSX.Element {
       <img src={logo} alt="Logo" className="header__logo" />
 
       <div className="header__logout">
-        <Btn text="Logout" color={Color.Danger} onClick={signOut} />
+        <Btn color={Color.Danger} onClick={signOut}>Logout</Btn>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface Props {
-  text: string,
-  onClick: () => void;
+  children: any,
+  onClick?: () => void;
   disabled?: boolean,
   color?: Color,
   className?: string
@@ -14,19 +14,20 @@ export enum Color {
   Success = 'success'
 }
 
-export function Btn({ text, onClick, disabled, color, className }: Props): JSX.Element {
+export function Btn({ children, onClick, disabled, color, className }: Props): JSX.Element {
   function action() {
-    if (!disabled) onClick();
+    if (!disabled && onClick) onClick();
   }
 
   function classNames() {
-    let name = `btn ${className}`;
-    if (disabled) return name.concat(` ${name}--disabled`);
-    if (color) name = name.concat(` ${name}--${color}`);
-    return name;
+    let name = `btn`;
+    if (disabled) name = name.concat(` ${name}--disabled`);
+    else if (color) name = name.concat(` ${name}--${color}`);
+    if (className) name = name.concat(` ${className}`);
+    return name
   }
 
   return (
-    <button className={classNames()} onClick={action}>{text}</button>
+    <button className={classNames()} onClick={action}>{children}</button>
   );
 }

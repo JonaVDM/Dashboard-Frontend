@@ -87,7 +87,7 @@ function Sidebar({ expanded, logout, permissions }: Props): JSX.Element {
     <div className={className()}>
       {items()}
       <div className="sidebar__logout mar-top">
-        <Btn text="Logout" color={Color.Danger} onClick={signOut} />
+        <Btn color={Color.Danger} onClick={signOut}>Logout</Btn>
       </div>
     </div>
   );

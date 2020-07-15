@@ -1,6 +1,6 @@
 import React from 'react';
 import Dashboard from '../dashboard/Dashbaord';
-import { Card, Sizes } from '../components/components';
+import { Card, Sizes, Btn, Color } from '../components/components';
 
 function UITester(): JSX.Element {
   return (
@@ -31,6 +31,17 @@ function UITester(): JSX.Element {
         <Card size={Sizes.quarter}>1/4</Card>
         <Card size={Sizes.quarter}>1/4</Card>
         <Card size={Sizes.quarter}>1/4</Card>
+
+        <Card size={Sizes.full}>
+          Buttons
+          <div>
+            <Btn className="mar-right mar-bottom mar-top">Default</Btn>
+            <Btn className="mar-right mar-bottom mar-top" color={Color.Primary}>Primary</Btn>
+            <Btn className="mar-right mar-bottom mar-top" color={Color.Success}>Success</Btn>
+            <Btn className="mar-right mar-bottom mar-top" color={Color.Danger}>Danger</Btn>
+            <Btn className="mar-right mar-bottom mar-top" color={Color.Primary} disabled>Disabled</Btn>
+          </div>
+        </Card>
       </div>
     </Dashboard>
   );

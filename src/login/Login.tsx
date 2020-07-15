@@ -16,6 +16,8 @@ function Login({ requesting, signIn }: Props) {
   const [message, setMessage] = useState('');
 
   function disabled(): boolean {
+    if (requesting) return true;
+    if (password === '' || email === '') return true;
     return false;
   }
 
@@ -56,7 +58,7 @@ function Login({ requesting, signIn }: Props) {
           onChange={(event) => setPassword(event.target.value)}
         />
 
-        <Btn text="Login" onClick={() => login()} color={Color.Primary} disabled={disabled()}/>
+        <Btn onClick={() => login()} color={Color.Primary} disabled={disabled()}>Login</Btn>
       </div>
     </div>
   );
