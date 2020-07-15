@@ -5,15 +5,15 @@ function NoMatch(): JSX.Element {
   const location = useLocation();
 
   return(
-    <h1>Not found</h1>
-    // <Container maxWidth="xl">
-    //   <Typography variant="h1">404</Typography>
-    //   <Typography variant="h3">Not found</Typography>
-    //   <Typography variant="body1">{location.pathname} was not found</Typography>
-    //   <Box mt={1}>
-    //     <Button variant="outlined" color="primary"><Link to="/">Back to safety</Link></Button>
-    //   </Box>
-    // </Container>
+    <div>
+      <h1 className="h1 center pad-top">404</h1>
+      <h2 className="h2 center pad-bottom">Not found</h2>
+      <p className="center">{location.pathname} was not found</p>
+
+      <div className="center pad-top">
+        <Link to="/">Back to safety</Link>
+      </div>
+    </div>
   );
 }
 

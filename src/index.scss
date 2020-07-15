@@ -2,13 +2,13 @@
 @import './scss/config.colors';
 @import './scss/config.breakpoints';
 
-@import './scss/mixin.spacing.scss';
-@import './scss/mixin.media.scss';
-
-// @import './dashboard/dashboard';
+@import './scss/mixin.spacing';
+@import './scss/mixin.media';
 
 @import './scss/font';
 @import './scss/img';
-@import './components/components.scss';
+@import './scss/center';
+@import './scss/pad-mar';
+@import './components/components';
 
-@import './login/login.scss';
+@import './login/login';

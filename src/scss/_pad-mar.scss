@@ -1,0 +1,39 @@
+.pad {
+  @include spacing(padding);
+
+  &-top {
+    @include spacing(padding-top);
+  }
+
+  &-bottom {
+    @include spacing(padding-bottom);
+  }
+
+  &-right {
+    @include spacing(padding-right);
+  }
+
+  &-left {
+    @include spacing(padding-left);
+  }
+}
+
+.mar {
+  @include spacing(margin);
+
+  &-top {
+    @include spacing(margin-top);
+  }
+
+  &-bottom {
+    @include spacing(margin-bottom);
+  }
+
+  &-right {
+    @include spacing(margin-right);
+  }
+
+  &-left {
+    @include spacing(margin-left);
+  }
+}
