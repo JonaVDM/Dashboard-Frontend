@@ -5,6 +5,7 @@ interface Props {
   onClick: () => void;
   disabled?: boolean,
   color?: Color,
+  className?: string
 }
 
 export enum Color {
@@ -13,16 +14,19 @@ export enum Color {
   Success = 'success'
 }
 
-export function Btn({text, onClick, disabled, color}: Props): JSX.Element {
-  function className() {
-    let name = "btn";
+export function Btn({ text, onClick, disabled, color, className }: Props): JSX.Element {
+  function action() {
+    if (!disabled) onClick();
+  }
+
+  function classNames() {
+    let name = `btn ${className}`;
     if (disabled) return name.concat(` ${name}--disabled`);
-    if (!color) return name;
-    if (color === 'primary') return name.concat(` ${name}--primary`);
-    if (color === 'danger') return name.concat(` ${name}--danger`);
+    if (color) name = name.concat(` ${name}--${color}`);
+    return name;
   }
 
   return (
-    <button className={className()} onClick={onClick}>{text}</button>
+    <button className={classNames()} onClick={action}>{text}</button>
   );
 }
