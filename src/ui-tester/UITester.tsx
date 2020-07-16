@@ -8,10 +8,10 @@ function UITester(): JSX.Element {
       <div className="grid">
         {/* Full width */}
         <Card size={Sizes.full}>
-          Grid layout/Cards
-          <div>
+          <p className="h2">Grid layout/Cards</p>
+          <p>
             1/1
-          </div>
+          </p>
         </Card>
 
         {/* Three Quarter */}
@@ -38,7 +38,7 @@ function UITester(): JSX.Element {
         <Card size={Sizes.quarter}>1/4</Card>
 
         <Card size={Sizes.full}>
-          Buttons
+          <p className="h2">Buttons</p>
           <div>
             <Btn className="mar-right mar-bottom mar-top">Default</Btn>
             <Btn className="mar-right mar-bottom mar-top" color={Color.Primary}>Primary</Btn>
@@ -54,6 +54,24 @@ function UITester(): JSX.Element {
           <TextField label="Email" type="email" className="pad-top"/>
           <TextField label="Text" type="text" className="pad-top"/>
         </Card>
+
+        <Card size={Sizes.full}>
+          <h1>h1</h1>
+          <p className="h1 pad-bottom">.h1</p>
+
+          <h2>h2</h2>
+          <p className="h2 pad-bottom">.h2</p>
+
+          <h3>h3</h3>
+          <p className="h3 pad-bottom">.h3</p>
+
+          <p>p</p>
+          <p className="bold">p.bold</p>
+          <p className="italic pad-bottom">p.italic</p>
+
+          <a href="/grid">Link</a>
+        </Card>
+
       </div>
     </Dashboard>
   );
