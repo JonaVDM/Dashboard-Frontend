@@ -49,7 +49,7 @@ function UITester(): JSX.Element {
         </Card>
 
         <Card size={Sizes.full}>
-          TextFields
+          <p className="h2">TextFields</p>
           <TextField label="Password" type="password" className="pad-top"/>
           <TextField label="Email" type="email" className="pad-top"/>
           <TextField label="Text" type="text" className="pad-top"/>

@@ -44,7 +44,7 @@
     grid-row: 2;
     z-index: 1;
 
-    background-color: $gray-400;
+    background-color: $background-color;
     overflow: scroll;
 
     @include media($md) {
