@@ -14,9 +14,13 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
   let [filtered, setFiltered] = useState<any[]>([]);
   let [filter, setFilter] = useState<string>('');
 
+  // The filter
   useEffect(() => {
+    // Reset the filter
     if (filter === '') return setFiltered(data);
-    let fil = [];
+
+    // The end result of the filter
+    let display = [];
     for (const row of data) {
       for (const column of columns) {
         let value = row[column];
@@ -24,13 +28,20 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
           let subKeys = column.split('.');
           value = row[subKeys[0]][subKeys[1]];
         }
-        if (typeof value !== 'object' && value.toString().includes(filter)) {
-          fil.push(row);
+
+        // If the value is an object it will be skipped
+        if (typeof value === 'object') continue;
+
+        // Filter the value in it's string form
+        if (value.toString().includes(filter)) {
+          display.push(row);
           break;
         }
       }
     }
-    setFiltered(fil);
+
+    // Set the items to be displayed.
+    setFiltered(display);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, data]);
 
@@ -58,6 +69,7 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
       row.push(<td className="table-list__data" key={`${key}-${value}`}>{value}</td>);
     }
 
+    // Push the row onto the
     items.push(<tr className="table-list__row" key={`${item[selector]}-row`}>{row}</tr>);
   }
 
