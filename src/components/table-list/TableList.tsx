@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { TextField } from '../components';
 
 interface Props {
   columns: string[],
@@ -10,13 +11,31 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
   let header: JSX.Element[] = [];
   let items: JSX.Element[] = [];
 
+  let [filtered, setFiltered] = useState<any[]>([]);
+  let [filter, setFilter] = useState<string>('');
+
+  useEffect(() => {
+    if (filter === '') return setFiltered(data);
+    let fil = [];
+    for (const row of data) {
+      for (const columm of columns) {
+        if (typeof row[columm] !== 'object' && row[columm].toString().includes(filter)) {
+          fil.push(row);
+          break;
+        }
+      }
+    }
+    setFiltered(fil);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, data]);
+
   for (let key of columns) {
     header.push(
       <th className="table-list__header" key={key}>{key}</th>
     );
   }
 
-  for (let item of data) {
+  for (let item of filtered) {
     // The row that will be added to the table
     let row: JSX.Element[] = [];
 
@@ -33,19 +52,23 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
       row.push(<td className="table-list__data" key={`${key}-${text}`}>{text}</td>);
     }
 
-    items.push(<tr className="table-list__row" key={`${item[selector]}-row`} onClick={(e) => {console.log(e)}}>{row}</tr>);
+    items.push(<tr className="table-list__row" key={`${item[selector]}-row`}>{row}</tr>);
   }
 
   return (
-    <table className="table-list">
-      <thead>
-        <tr className="table-list__row">
-          {header}
-        </tr>
-      </thead>
-      <tbody>
-        {items}
-      </tbody>
-    </table>
+    <div>
+      <TextField placeholder="filter" className="pad-bottom" onChange={(ev) => setFilter(ev.target.value)}/>
+
+      <table className="table-list">
+        <thead>
+          <tr className="table-list__row">
+            {header}
+          </tr>
+        </thead>
+        <tbody>
+          {items}
+        </tbody>
+      </table>
+    </div>
   );
 }
