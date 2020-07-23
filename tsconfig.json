@@ -18,9 +18,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "typeRoots": ["./src/react-app-env.d.ts", "./node_modules/@types", "./typings/typings.d.ts"]
+    "typeRoots": [
+      "./typins/typings.d.tgs",
+      "./src/react-app-env.d.ts",
+      "./node_modules/@types"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "typings"
   ]
 }
