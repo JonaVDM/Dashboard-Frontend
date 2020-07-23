@@ -1,16 +1,65 @@
 .table-list {
   width: 100%;
+  display: block;
+
+  @include media($md) {
+    display: table;
+  }
+
+  &__row {
+    display: block;
+    @include spacing(padding-top);
+    @include spacing(margin-bottom);
+
+    border-top: 1px solid $black;
+
+    &:first-child {
+      border: 0;
+      display: none;
+    }
+
+    &:nth-child(2) {
+      border: 0;
+      padding: 0;
+    }
+
+    @include media($md) {
+      display: table-row;
+
+      &:first-child {
+        display: table-row;
+      }
+
+      &:nth-child(2) {
+        border-top: 1px solid $black;
+      }
+    }
+  }
 
   &__header {
     text-align: start;
     padding: 0 0 10px 0;
+    display: none;
+
+    @include media($md) {
+      display: table-cell;
+    }
   }
 
   &__data {
     padding: 10px 0;
     font-weight: normal;
-    cursor: normal;
     display: table-cell;
-    border-top: 1px solid $black;
+    display: block;
+
+    @include media($md) {
+      display: table-cell;
+    }
+
+    &-label {
+      @include media($md) {
+        display: none;
+      }
+    }
   }
 }

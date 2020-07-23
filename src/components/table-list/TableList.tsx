@@ -42,7 +42,7 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
 
     // Set the items to be displayed.
     setFiltered(display);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, data]);
 
   for (let key of columns) {
@@ -65,8 +65,16 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
         value = item[subKeys[0]][subKeys[1]];
       }
 
+      let classNameColumn = 'table-list__data';
+      if (key === selector) {
+        classNameColumn = classNameColumn.concat(` ${classNameColumn}--selector`);
+      }
+
       // Push the data onto the row
-      row.push(<td className="table-list__data" key={`${key}-${value}`}>{value}</td>);
+      row.push(<td className={classNameColumn} key={`${key}-${value}`}>
+        <span className="table-list__data-label">{key}: </span>
+        {value}
+      </td>);
     }
 
     // Push the row onto the
@@ -75,17 +83,17 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
 
   return (
     <div>
-      <TextField placeholder="filter" className="pad-bottom" onChange={(ev) => setFilter(ev.target.value)}/>
+      <TextField
+        placeholder="filter"
+        className="pad-bottom"
+        onChange={(ev) => setFilter(ev.target.value)}
+      />
 
       <table className="table-list">
-        <thead>
-          <tr className="table-list__row">
-            {header}
-          </tr>
-        </thead>
-        <tbody>
-          {items}
-        </tbody>
+        <tr className="table-list__row">
+          {header}
+        </tr>
+        {items}
       </table>
     </div>
   );
