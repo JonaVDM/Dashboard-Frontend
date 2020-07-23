@@ -18,8 +18,13 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
     if (filter === '') return setFiltered(data);
     let fil = [];
     for (const row of data) {
-      for (const columm of columns) {
-        if (typeof row[columm] !== 'object' && row[columm].toString().includes(filter)) {
+      for (const column of columns) {
+        let value = row[column];
+        if (column.includes('.')) {
+          let subKeys = column.split('.');
+          value = row[subKeys[0]][subKeys[1]];
+        }
+        if (typeof value !== 'object' && value.toString().includes(filter)) {
           fil.push(row);
           break;
         }
@@ -43,13 +48,14 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
     for (let key of columns) {
 
       // If the type happens to be an object, use the name of that object
-      let text: string = item[key];
-      if (typeof item[key] == 'object') {
-        text = item[key]['name'];
+      let value: string = item[key];
+      if (key.includes('.')) {
+        let subKeys = key.split('.');
+        value = item[subKeys[0]][subKeys[1]];
       }
 
       // Push the data onto the row
-      row.push(<td className="table-list__data" key={`${key}-${text}`}>{text}</td>);
+      row.push(<td className="table-list__data" key={`${key}-${value}`}>{value}</td>);
     }
 
     items.push(<tr className="table-list__row" key={`${item[selector]}-row`}>{row}</tr>);

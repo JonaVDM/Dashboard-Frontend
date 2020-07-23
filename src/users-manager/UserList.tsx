@@ -10,7 +10,7 @@ export default function UserList({ users }: Props): JSX.Element {
     '_id',
     'name',
     'email',
-    'role'
+    'role.name'
   ];
 
   return (
