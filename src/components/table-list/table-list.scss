@@ -1,0 +1,16 @@
+.table-list {
+  width: 100%;
+
+  &__header {
+    text-align: start;
+    padding: 0 0 10px 0;
+  }
+
+  &__data {
+    padding: 10px 0;
+    font-weight: normal;
+    cursor: normal;
+    display: table-cell;
+    border-top: 1px solid $black;
+  }
+}
