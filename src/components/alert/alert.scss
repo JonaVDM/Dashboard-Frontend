@@ -1,0 +1,29 @@
+.alert {
+  @extend .card--full;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+
+
+  padding: 10px;
+  border-radius: 3px;
+
+  align-items: center;
+
+  &__text {
+    color: $white;
+    font-weight: bold;
+    grid-column: 2;
+  }
+
+  &__close {
+    color: $white;
+    grid-column: 3;
+  }
+
+  &__icon {
+    color: $white;
+    padding-right: 20px;
+    columns: 1;
+  }
+}

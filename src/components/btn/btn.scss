@@ -4,7 +4,6 @@
   border-radius: 3px;
   cursor: pointer;
 
-  background-color: $default;
   color: $white;
 
   text-transform: uppercase;
@@ -17,17 +16,5 @@
     color: $gray-600;
 
     cursor: default;
-  }
-
-  &--primary {
-    background-color: $primary;
-  }
-
-  &--success {
-    background-color: $success;
-  }
-
-  &--danger {
-    background-color: $danger;
   }
 }
