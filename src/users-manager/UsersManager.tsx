@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Dashboard from '../dashboard/Dashbaord';
 import { Card, Sizes } from '../components/components';
 import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers';
+import Dashboard from '../dashboard/Dashbaord';
+import NewUser from './NewUser';
+import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 
 interface Props {
@@ -14,9 +15,9 @@ function UsersManager({token}: Props): JSX.Element {
   let [message, setMessage] = useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {loadUsers()}, []);
+  useEffect(() => {load()}, []);
 
-  async function loadUsers() {
+  async function load() {
     let request = await fetch('/api/user', {
       headers: {
         'x-token': token,
@@ -40,7 +41,16 @@ function UsersManager({token}: Props): JSX.Element {
           <p className="h1">User Manger</p>
         </Card>
 
-        <Card>
+        <Card size={Sizes.half}>
+          <p className="h2 pad-bottom">New</p>
+          <NewUser />
+        </Card>
+
+        <Card size={Sizes.half}>
+          <p className="h3">Update</p>
+        </Card>
+
+        <Card size={Sizes.full}>
           <UserList users={users} />
         </Card>
       </div>

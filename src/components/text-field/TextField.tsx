@@ -11,7 +11,7 @@ interface Props {
 
 export function TextField({ label, type, onChange, onKeyPress, className, placeholder }: Props) {
   return (
-    <div className={className}>
+    <div className={`text-field__container ${className ?? ''}`}>
       {label &&
         <label className="text-fied__buttom" htmlFor={"input-" + label}>{label}</label>
       }
