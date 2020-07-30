@@ -6,27 +6,41 @@ import { TextField } from '../components/components';
 
 interface Props {
   token: string,
+  onError: (message: { key: string, message: string }[]) => void,
+  onMessage: (message: string) => void,
 }
 
-function NewUser({ token }: Props): JSX.Element {
+function NewUser({ token, onError, onMessage }: Props): JSX.Element {
   let [name, setName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
-  let [role] = useState('normal');
+  // let [role] = useState('normal');
 
   function enabled(): boolean {
     return name !== '' && email !== '' && password !== '';
   }
 
   async function create() {
-    await fetch('/api/user', {
-      method: 'POST',
-      headers: {
-        'x-token': token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, password, email, role }),
-    });
+    try {
+      let res = await fetch('/api/user', {
+        method: 'POST',
+        headers: {
+          'x-token': token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, password, email }),
+      });
+
+      let data = await res.json();
+
+      if (data.messages) {
+        return onError(data.messages);
+      } else {
+        return onMessage(`Created user ${data.user.name}`);
+      }
+    } catch (e) {
+      onError(e.message);
+    }
   }
 
   return (
