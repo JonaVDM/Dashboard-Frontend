@@ -4,10 +4,11 @@ import { Color } from '../components';
 interface Props {
   children: any,
   icon?: string,
-  color?: Color
+  color?: Color,
+  onClose?: () => void,
 }
 
-export function Alert({ color = Color.Danger, children, icon = "warning" }: Props) {
+export function Alert({ color = Color.Danger, children, icon = "warning", onClose }: Props) {
   return (
     <div className={`alert bg-${color}`}>
       <span className="material-icons alert__icon">
@@ -16,9 +17,12 @@ export function Alert({ color = Color.Danger, children, icon = "warning" }: Prop
       <div className="alert__text">
         {children}
       </div>
-      <span className="material-icons alert__close">
-        close
-      </span>
+
+      {onClose && (
+        <span className="material-icons alert__close" onClick={onClose}>
+          close
+        </span>
+      )}
     </div>
   )
 }

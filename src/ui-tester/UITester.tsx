@@ -48,7 +48,7 @@ function UITester(): JSX.Element {
           </div>
         </Card>
 
-        <Alert icon="mood_bad" color={Color.Danger}>This is bad!</Alert>
+        <Alert icon="mood_bad" color={Color.Danger} onClose={() => { }}>This is bad!</Alert>
         <Alert icon="mood" color={Color.Success}>This is good!</Alert>
         <Alert color={Color.Default}>This is default!</Alert>
         <Alert color={Color.Primary}>This is primary!</Alert>
@@ -56,7 +56,7 @@ function UITester(): JSX.Element {
 
         <Card size={Sizes.full}>
           <p className="h2">TextFields</p>
-          <TextField label="Password" type="password"/>
+          <TextField label="Password" type="password" />
           <TextField label="Email" type="email" />
           <TextField label="Text" type="text" />
         </Card>

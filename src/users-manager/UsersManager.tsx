@@ -54,7 +54,7 @@ function UsersManager({ token }: Props): JSX.Element {
         </Card>
 
         {message && (
-          <Alert color={color}>{message}</Alert>
+          <Alert color={color} onClose={() => setMessage('')}>{message}</Alert>
         )}
 
         <Card size={Sizes.half}>

@@ -19,6 +19,8 @@
   &__close {
     color: $white;
     grid-column: 3;
+
+    cursor: pointer;
   }
 
   &__icon {
