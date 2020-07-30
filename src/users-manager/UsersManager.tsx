@@ -14,11 +14,12 @@ function UsersManager({ token }: Props): JSX.Element {
   let [users, setUsers] = useState<User[]>([]);
   let [message, setMessage] = useState<string>();
   let [color, setColor] = useState<Color>(Color.Success);
+  let [roles, setRoles] = useState<string[]>([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { load() }, []);
+  useEffect(() => { loadUsers(); loadRoles() }, []);
 
-  async function load() {
+  async function loadUsers() {
     let request = await fetch('/api/user', {
       headers: {
         'x-token': token,
@@ -30,6 +31,26 @@ function UsersManager({ token }: Props): JSX.Element {
       setUsers(data.users);
     } else {
       setMessage(data.message);
+    }
+  }
+
+  async function loadRoles() {
+    let request = await fetch('/api/role', {
+      headers: {
+        'x-token': token,
+      }
+    });
+
+    let data = await request.json();
+
+    if (data.message) {
+      setMessage(data.message);
+    } else {
+      let roleList = [];
+      for (let role of data.roles) {
+        roleList.push(role.name);
+      }
+      setRoles(roleList);
     }
   }
 
@@ -59,7 +80,7 @@ function UsersManager({ token }: Props): JSX.Element {
 
         <Card size={Sizes.half}>
           <p className="h2 pad-bottom">New</p>
-          <NewUser onError={onError} onMessage={onMessage} />
+          <NewUser onError={onError} onMessage={onMessage} roles={roles} />
         </Card>
 
         <Card size={Sizes.half}>

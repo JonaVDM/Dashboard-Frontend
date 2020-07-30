@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Btn, Color, DropDown } from '../components/components';
 import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers';
@@ -8,13 +8,24 @@ interface Props {
   token: string,
   onError: (message: { key: string, message: string }[]) => void,
   onMessage: (message: string) => void,
+  roles: string[],
 }
 
-function NewUser({ token, onError, onMessage }: Props): JSX.Element {
+function NewUser({ token, onError, onMessage, roles }: Props): JSX.Element {
   let [name, setName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
-  // let [role] = useState('normal');
+  let [role, setRole] = useState('normal');
+
+  let [options, setOptions] = useState<{ label: string, value: string }[]>([]);
+
+  useEffect(() => {
+    let optionList = [];
+    for (let role of roles) {
+      optionList.push({ label: role, value: role });
+    }
+    setOptions(optionList);
+  }, [roles]);
 
   function enabled(): boolean {
     return name !== '' && email !== '' && password !== '';
@@ -28,7 +39,7 @@ function NewUser({ token, onError, onMessage }: Props): JSX.Element {
           'x-token': token,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, password, email }),
+        body: JSON.stringify({ name, password, email, role }),
       });
 
       let data = await res.json();
@@ -48,7 +59,7 @@ function NewUser({ token, onError, onMessage }: Props): JSX.Element {
       <TextField label="Name" onChange={(ev) => setName(ev.target.value)} />
       <TextField label="Email" onChange={(ev) => setEmail(ev.target.value)} />
       <TextField label="Password" type="password" onChange={(ev) => setPassword(ev.target.value)} />
-      <DropDown />
+      <DropDown label="Role" options={options} selected={role} onChange={(ev) => { setRole(ev.target.value) }} />
       <Btn disabled={!enabled()} color={Color.Success} onClick={create}>Create</Btn>
     </div>
   );

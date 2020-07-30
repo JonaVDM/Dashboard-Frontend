@@ -13,7 +13,7 @@ export function TextField({ label, type, onChange, onKeyPress, className, placeh
   return (
     <div className={`text-field__container ${className ?? ''}`}>
       {label &&
-        <label className="text-fied__buttom" htmlFor={"input-" + label}>{label}</label>
+        <label className="text-field__label" htmlFor={"input-" + label}>{label}</label>
       }
       <input
         className="text-field"

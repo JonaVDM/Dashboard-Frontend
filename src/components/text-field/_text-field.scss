@@ -2,7 +2,7 @@
   width: 100%;
   display: inline-block;
   border: none;
-  border-bottom: 2px solid $black;
+  border-bottom: 1px solid $black;
   border-radius: 1px;
   background-color: $white;
 
@@ -10,5 +10,10 @@
 
   &__container {
     @include spacing(margin-bottom);
+  }
+
+  &__label {
+    font-size: $label-size;
+    font-weight: $label-weight;
   }
 }
