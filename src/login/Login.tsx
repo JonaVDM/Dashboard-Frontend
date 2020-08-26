@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { RootState } from '../redux/reducers';
-import { login } from '../redux/actions';
 import logo from '../assets/logo.png';
 import { TextField, Btn, Color } from '../components/components';
 
@@ -10,7 +7,7 @@ interface Props {
   signIn: any
 }
 
-function Login({ requesting, signIn }: Props) {
+export default function Login({ requesting, signIn }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -66,18 +63,3 @@ function Login({ requesting, signIn }: Props) {
     </div>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    requesting: state.auth.requesting,
-  }
-};
-
-function mapDispatch(dispatch: any) {
-  return {
-    signIn: async (email: string, password: string) =>
-      await dispatch(login(email, password))
-  }
-}
-
-export default connect(mapState, mapDispatch)(Login);
