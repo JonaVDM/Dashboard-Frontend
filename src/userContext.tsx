@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import * as api from './api';
 
-interface ctx {
+interface Context {
   user?: User,
-  token?: string,
+  token: string,
   saveToken: any,
   logout: () => void
 }
 
-
-// why is this a thing
-let defaultValue: ctx = {
+let defaultValue: Context = {
   logout: () => { },
-  saveToken: () => { }
+  saveToken: () => { },
+  token: '',
 }
 
-const userContext = React.createContext<ctx>(defaultValue);
+const userContext = React.createContext<Context>(defaultValue);
 
 interface Props {
   children: any,
 }
 
 export function UserProvider({ children }: Props) {
-  let [user, setUser] = useState(undefined);
+  function cacheUser() {
+    let stored = localStorage.getItem('user');
+    return (stored) ? JSON.parse(stored) : undefined;
+  }
+
+  let [user, setUser] = useState(cacheUser());
   let [token, setToken] = useState(localStorage.getItem('token') ?? '');
 
-  useEffect(() => {
-    let stored = localStorage.getItem('user');
-    if (stored) {
-      setUser(JSON.parse(stored));
-    }
-  }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { loadUser() }, [token]);
 
