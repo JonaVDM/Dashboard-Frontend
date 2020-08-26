@@ -1,7 +1,6 @@
 import { Card, Sizes, Color, Alert } from '../components/components';
 import { connect } from 'react-redux';
 import { RootState } from '../redux/reducers';
-import Dashboard from '../dashboard/Dashbaord';
 import NewUser from './NewUser';
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
@@ -67,31 +66,29 @@ function UsersManager({ token }: Props): JSX.Element {
   }
 
   return (
-    <Dashboard>
-      <div className="grid">
+    <div className="grid">
 
-        <Card size={Sizes.full}>
-          <p className="h1">User Manger</p>
-        </Card>
+      <Card size={Sizes.full}>
+        <p className="h1">User Manger</p>
+      </Card>
 
-        {message && (
-          <Alert color={color} onClose={() => setMessage('')}>{message}</Alert>
-        )}
+      {message && (
+        <Alert color={color} onClose={() => setMessage('')}>{message}</Alert>
+      )}
 
-        <Card size={Sizes.half}>
-          <p className="h2 pad-bottom">New</p>
-          <NewUser onError={onError} onMessage={onMessage} roles={roles} />
-        </Card>
+      <Card size={Sizes.half}>
+        <p className="h2 pad-bottom">New</p>
+        <NewUser onError={onError} onMessage={onMessage} roles={roles} />
+      </Card>
 
-        <Card size={Sizes.half}>
-          <p className="h3">Update</p>
-        </Card>
+      <Card size={Sizes.half}>
+        <p className="h3">Update</p>
+      </Card>
 
-        <Card size={Sizes.full}>
-          <UserList users={users} />
-        </Card>
-      </div>
-    </Dashboard>
+      <Card size={Sizes.full}>
+        <UserList users={users} />
+      </Card>
+    </div>
   );
 }
 
