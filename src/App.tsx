@@ -4,7 +4,7 @@ import userContext from './userContext';
 import * as api from './api';
 
 export default function App() {
-  let [user, setUser] = useState({});
+  let [user, setUser] = useState(undefined);
   let [token, setToken] = useState(localStorage.getItem('token') ?? '');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,8 +20,12 @@ export default function App() {
     }
   }
 
+  let provider = {
+    user, token
+  }
+
   return (
-    <userContext.Provider value={{ user, token }}>
+    <userContext.Provider value={provider}>
       <Routes />
     </userContext.Provider>
   );

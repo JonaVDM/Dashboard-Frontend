@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import userContext from '../userContext';
 
-interface Props {
-  name?: string
-}
+export default function Home() {
+  let { user } = useContext(userContext);
 
-export default function Home({ name = 'Jona' }: Props) {
   return (
-    <h1>Hello {name}</h1>
+    <h1>Hello {user ? user.name : ''}</h1>
   );
 }
