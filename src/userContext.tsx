@@ -25,6 +25,12 @@ export function UserProvider({ children }: Props) {
   let [user, setUser] = useState(undefined);
   let [token, setToken] = useState(localStorage.getItem('token') ?? '');
 
+  useEffect(() => {
+    let stored = localStorage.getItem('user');
+    if (stored) {
+      setUser(JSON.parse(stored));
+    }
+  }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { loadUser() }, [token]);
 
@@ -37,6 +43,7 @@ export function UserProvider({ children }: Props) {
         setToken('');
       }
       setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
     }
   }
 
