@@ -1,10 +1,10 @@
 import { Btn, Color } from '../../components/components';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import userContext from '../../userContext';
 
 interface Props {
   expanded: boolean,
-  permissions?: string[]
 }
 
 interface Item {
@@ -23,7 +23,10 @@ interface Item {
   requirements?: string[],
 }
 
-export default function Sidebar({ expanded, permissions = [] }: Props): JSX.Element {
+export default function Sidebar({ expanded }: Props): JSX.Element {
+  let { user } = useContext(userContext);
+  let permissions: string[] = user ? user.role.permissions : [];
+
   function className(): string {
     if (expanded) return 'sidebar sidebar--expanded';
     return 'sidebar';

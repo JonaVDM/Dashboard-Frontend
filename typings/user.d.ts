@@ -5,5 +5,6 @@ interface User {
   role: {
     _id: string,
     name: string,
+    permissions: string[],
   };
 }

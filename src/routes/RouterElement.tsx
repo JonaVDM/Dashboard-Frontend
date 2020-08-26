@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,11 +9,7 @@ import Login from '../login/Login';
 import NoMatch from '../no-match/NoMatch';
 import pages from './routes';
 import Dashbaord from '../dashboard/Dashbaord';
-
-interface Props {
-  isLoggedIn?: boolean,
-  permissions?: string[]
-}
+import userContext from '../userContext';
 
 export interface RouteLink {
   location: string,
@@ -21,11 +17,16 @@ export interface RouteLink {
   requirements?: string[]
 }
 
-export default function Routes({ isLoggedIn = true, permissions = ['admin'] }: Props): JSX.Element {
+export default function Routes(): JSX.Element {
   let routes: JSX.Element[] = [];
 
+  // load the context
+  let { user } = useContext(userContext);
+
+
   // Skip loop if user not logged in
-  if (isLoggedIn) {
+  if (user) {
+    let { permissions } = user.role;
     for (const route of pages) {
       let { element, location, requirements } = route;
 
@@ -63,12 +64,12 @@ export default function Routes({ isLoggedIn = true, permissions = ['admin'] }: P
 
         {/* Login page */}
         <Route exact path="/login" render={() => (
-          (isLoggedIn) ? <Redirect to="/" /> : <Login />
+          (user) ? <Redirect to="/" /> : <Login />
         )} />
 
         {/* 404 or login page */}
         <Route path="*" render={() => (
-          (!isLoggedIn) ? <Redirect to="/login" /> : <NoMatch />
+          (!user) ? <Redirect to="/login" /> : <NoMatch />
         )} />
       </Switch>
     </Router>
