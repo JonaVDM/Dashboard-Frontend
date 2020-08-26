@@ -5,16 +5,14 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { connect } from 'react-redux';
-import { RootState } from '../redux/reducers';
 import Login from '../login/Login';
 import NoMatch from '../no-match/NoMatch';
 import pages from './routes';
 import Dashbaord from '../dashboard/Dashbaord';
 
 interface Props {
-  isLoggedIn: boolean,
-  permissions: string[]
+  isLoggedIn?: boolean,
+  permissions?: string[]
 }
 
 export interface RouteLink {
@@ -23,7 +21,7 @@ export interface RouteLink {
   requirements?: string[]
 }
 
-function Routes({ isLoggedIn, permissions }: Props): JSX.Element {
+export default function Routes({ isLoggedIn = true, permissions = ['admin'] }: Props): JSX.Element {
   let routes: JSX.Element[] = [];
 
   // Skip loop if user not logged in
@@ -76,12 +74,3 @@ function Routes({ isLoggedIn, permissions }: Props): JSX.Element {
     </Router>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    isLoggedIn: state.auth.token !== '',
-    permissions: state.auth.role.permissions,
-  }
-};
-
-export default connect(mapState)(Routes);

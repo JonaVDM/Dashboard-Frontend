@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Btn, Color, DropDown } from '../components/components';
-import { connect } from 'react-redux';
-import { RootState } from '../redux/reducers';
 import { TextField } from '../components/components';
 
 interface Props {
-  token: string,
+  token?: string,
   onError: (message: { key: string, message: string }[]) => void,
   onMessage: (message: string) => void,
   roles: string[],
 }
 
-function NewUser({ token, onError, onMessage, roles }: Props): JSX.Element {
+export default function NewUser({ token = 'develop', onError, onMessage, roles }: Props): JSX.Element {
   let [name, setName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
@@ -64,11 +62,3 @@ function NewUser({ token, onError, onMessage, roles }: Props): JSX.Element {
     </div>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    token: state.auth.token,
-  }
-}
-
-export default connect(mapState)(NewUser);

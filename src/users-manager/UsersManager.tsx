@@ -1,15 +1,13 @@
 import { Card, Sizes, Color, Alert } from '../components/components';
-import { connect } from 'react-redux';
-import { RootState } from '../redux/reducers';
 import NewUser from './NewUser';
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 
 interface Props {
-  token: string,
+  token?: string,
 }
 
-function UsersManager({ token }: Props): JSX.Element {
+export default function UsersManager({ token = 'dev' }: Props): JSX.Element {
   let [users, setUsers] = useState<User[]>([]);
   let [message, setMessage] = useState<string>();
   let [color, setColor] = useState<Color>(Color.Success);
@@ -91,15 +89,3 @@ function UsersManager({ token }: Props): JSX.Element {
     </div>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    token: state.auth.token
-  }
-};
-
-function mapDispatch(dispatch: any) {
-  return {}
-}
-
-export default connect(mapState, mapDispatch)(UsersManager);

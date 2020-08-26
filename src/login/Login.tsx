@@ -3,8 +3,8 @@ import logo from '../assets/logo.png';
 import { TextField, Btn, Color } from '../components/components';
 
 interface Props {
-  requesting: boolean,
-  signIn: any
+  requesting?: boolean,
+  signIn?: any
 }
 
 export default function Login({ requesting, signIn }: Props) {
