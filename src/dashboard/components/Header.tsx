@@ -1,7 +1,8 @@
 import { Btn, Color } from '../../components/components';
 import Hamburger from './Hamburger';
 import logo from '../../assets/logo.png';
-import React from 'react';
+import React, { useContext } from 'react';
+import userContext from '../../userContext';
 
 interface Props {
   onNavToggle: () => void,
@@ -9,8 +10,10 @@ interface Props {
 }
 
 export default function Header({ onNavToggle, isActive }: Props): JSX.Element {
+  let { logout } = useContext(userContext);
+
   function signOut() {
-    // logout();
+    logout();
   }
 
   return (

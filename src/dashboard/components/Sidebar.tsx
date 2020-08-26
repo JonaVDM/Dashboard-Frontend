@@ -27,13 +27,15 @@ export default function Sidebar({ expanded }: Props): JSX.Element {
   let { user } = useContext(userContext);
   let permissions: string[] = user ? user.role.permissions : [];
 
+  let { logout } = useContext(userContext);
+
   function className(): string {
     if (expanded) return 'sidebar sidebar--expanded';
     return 'sidebar';
   }
 
   function signOut(): void {
-    // logout();
+    logout();
   }
 
   function items(): JSX.Element[] {

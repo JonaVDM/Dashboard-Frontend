@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import logo from '../assets/logo.png';
 import { TextField, Btn, Color } from '../components/components';
+import * as api from '../api';
+import userContext from '../userContext';
 
-interface Props {
-  requesting?: boolean,
-  signIn?: any
-}
-
-export default function Login({ requesting, signIn }: Props) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+
+  const [requesting, setRequesting] = useState(false);
+
+  let { saveToken } = useContext(userContext);
 
   function disabled(): boolean {
     if (requesting) return true;
@@ -23,11 +24,15 @@ export default function Login({ requesting, signIn }: Props) {
     if (email === '' || password === '') return;
 
     setMessage('');
+    setRequesting(true);
 
-    let data = await signIn(email, password);
+    let data = await api.auth.login(email, password);
 
-    if (!data.login) {
+    if (!data.token) {
       setMessage(data.message);
+      setRequesting(false);
+    } else {
+      saveToken(data.token);
     }
   }
 

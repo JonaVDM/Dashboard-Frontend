@@ -1,5 +1,15 @@
-function login() {
+async function login(email: string, password: string) {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
 
+  const data = await response.json();
+
+  return data;
 }
 
 async function me(token: string) {
