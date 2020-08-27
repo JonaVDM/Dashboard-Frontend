@@ -3,6 +3,7 @@ import { Card, Alert, Sizes, Filter } from '../components/components';
 import NewUser from './NewUser';
 import UserList from './UserList';
 import { UsersProvider } from './UsersContext';
+import UsersFilter from './UsersFilter';
 
 export default function UserManger(): JSX.Element {
   return (
@@ -26,10 +27,10 @@ export default function UserManger(): JSX.Element {
           <UserList />
         </Card>
 
-        {/* <Card size={Sizes.quarter}>
-        <p className="h2 pad-bottom">Filter</p>
-        <Filter data={users} onFilter={() => { }} columns={['name']} />
-      </Card> */}
+        <Card size={Sizes.quarter}>
+          <p className="h2 pad-bottom">Filter</p>
+          <UsersFilter />
+        </Card>
       </div>
     </UsersProvider>
   );

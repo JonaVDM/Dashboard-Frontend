@@ -5,6 +5,9 @@ import userContext from '../userContext';
 
 interface Context {
   users: User[],
+  filtered: User[],
+  setFiltered: any,
+  tableColumns: string[],
 }
 
 interface Props {
@@ -13,6 +16,9 @@ interface Props {
 
 let defaultContext: Context = {
   users: [],
+  filtered: [],
+  setFiltered: () => { },
+  tableColumns: ['_id', 'name', 'email', 'role.name'],
 }
 
 const UsersContext = createContext<Context>(defaultContext);
@@ -22,6 +28,7 @@ export function UsersProvider({ children }: Props) {
   const { token } = useContext(userContext);
 
   const [users, setUsers] = useState<User[]>([]);
+  const [filtered, setFiltered] = useState<User[]>([]);
 
   async function loadUsers() {
     try {
@@ -38,6 +45,9 @@ export function UsersProvider({ children }: Props) {
 
   let provider: Context = {
     users,
+    filtered,
+    setFiltered,
+    tableColumns: defaultContext.tableColumns
   }
 
   return (

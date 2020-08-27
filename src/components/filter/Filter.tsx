@@ -10,7 +10,7 @@ interface Props {
 export function Filter({ data, onFilter, columns }: Props) {
   let [filter, setFilter] = useState('');
 
-  useEffect(applyFilter, [filter]);
+  useEffect(applyFilter, [filter, data]);
 
   function applyFilter() {
     // Reset the filter
@@ -44,7 +44,6 @@ export function Filter({ data, onFilter, columns }: Props) {
   return (
     <TextField
       placeholder="filter"
-      // className="pad-bottom"
       onChange={(ev) => setFilter(ev.target.value)}
     />
   );
