@@ -1,5 +1,4 @@
 import React from 'react';
-import { TextField } from '../components';
 
 interface Props {
   columns: string[],
@@ -50,10 +49,14 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
   return (
     <div>
       <table className="table-list">
-        <tr className="table-list__row">
-          {header}
-        </tr>
-        {items}
+        <thead>
+          <tr className="table-list__row">
+            {header}
+          </tr>
+        </thead>
+        <tbody>
+          {items}
+        </tbody>
       </table>
     </div>
   );

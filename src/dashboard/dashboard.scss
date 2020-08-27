@@ -8,7 +8,7 @@
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
 
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
 
   @include media($md) {
@@ -43,16 +43,17 @@
       background-color: $background-color;
       width: 100%;
       height: 100%;
-      overflow-y: scroll;
+      // overflow-y: scroll;
+      grid-column: 1;
+      grid-row: 2;
+      z-index: 1;
+
+      @include media($md) {
+        grid-column: 2;
+      }
     }
 
     padding: 10px;
-    grid-column: 1;
-    grid-row: 2;
-    z-index: 1;
 
-    @include media($md) {
-      grid-column: 2;
-    }
   }
 }
