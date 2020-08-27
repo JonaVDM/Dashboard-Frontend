@@ -1,4 +1,4 @@
-import { Card, Sizes, Color, Alert } from '../components/components';
+import { Card, Sizes, Color, Alert, Filter } from '../components/components';
 import NewUser from './NewUser';
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
@@ -79,12 +79,13 @@ export default function UsersManager({ token = 'dev' }: Props): JSX.Element {
         <NewUser onError={onError} onMessage={onMessage} roles={roles} />
       </Card>
 
-      <Card size={Sizes.half}>
-        <p className="h3">Update</p>
+      <Card size={Sizes.three_quarters}>
+        <UserList />
       </Card>
 
-      <Card size={Sizes.full}>
-        <UserList users={users} />
+      <Card size={Sizes.quarter}>
+        <p className="h2 pad-bottom">Filter</p>
+        <Filter data={users} onFilter={() => { }} columns={['name']} />
       </Card>
     </div>
   );

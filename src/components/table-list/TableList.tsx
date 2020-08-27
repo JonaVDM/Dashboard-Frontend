@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TextField } from '../components';
 
 interface Props {
@@ -11,47 +11,13 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
   let header: JSX.Element[] = [];
   let items: JSX.Element[] = [];
 
-  let [filtered, setFiltered] = useState<any[]>([]);
-  let [filter, setFilter] = useState<string>('');
-
-  // The filter
-  useEffect(() => {
-    // Reset the filter
-    if (filter === '') return setFiltered(data);
-
-    // The end result of the filter
-    let display = [];
-    for (const row of data) {
-      for (const column of columns) {
-        let value = row[column];
-        if (column.includes('.')) {
-          let subKeys = column.split('.');
-          value = row[subKeys[0]][subKeys[1]];
-        }
-
-        // If the value is an object it will be skipped
-        if (typeof value === 'object') continue;
-
-        // Filter the value in it's string form
-        if (value.toString().includes(filter)) {
-          display.push(row);
-          break;
-        }
-      }
-    }
-
-    // Set the items to be displayed.
-    setFiltered(display);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, data]);
-
   for (let key of columns) {
     header.push(
       <th className="table-list__header" key={key}>{key}</th>
     );
   }
 
-  for (let item of filtered) {
+  for (let item of data) {
     // The row that will be added to the table
     let row: JSX.Element[] = [];
 
@@ -83,12 +49,6 @@ export function TableList({ columns, selector, data }: Props): JSX.Element {
 
   return (
     <div>
-      <TextField
-        placeholder="filter"
-        className="pad-bottom"
-        onChange={(ev) => setFilter(ev.target.value)}
-      />
-
       <table className="table-list">
         <tr className="table-list__row">
           {header}

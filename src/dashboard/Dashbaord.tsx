@@ -19,8 +19,10 @@ export default function Dashboard({ children }: Props) {
         <Sidebar expanded={expanded} />
       </div>
 
-      <div className="dashboard__content">
-        {children}
+      <div className="dashboard__content-container">
+        <div className="dashboard__content">
+          {children}
+        </div>
       </div>
     </div>
   );

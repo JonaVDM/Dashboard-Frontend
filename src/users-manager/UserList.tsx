@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { TableList } from '../components/components';
+import UsersContext from './UsersContext';
 
-interface Props {
-  users: User[]
-}
+export default function UserList(): JSX.Element {
+  let { users } = useContext(UsersContext);
 
-export default function UserList({ users }: Props): JSX.Element {
   let columns = [
     '_id',
     'name',

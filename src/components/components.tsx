@@ -5,3 +5,4 @@ export * from './defaults/Color';
 export * from './drop-down/DropDown';
 export * from './table-list/TableList';
 export * from './text-field/TextField';
+export * from './filter/Filter';
