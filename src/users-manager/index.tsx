@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Sizes } from '../components/components';
+import { Card, Sizes, Btn, Color } from '../components/components';
 import NewUser from './NewUser';
 import UserList from './UserList';
 import { UsersProvider } from './UsersContext';
@@ -11,8 +11,11 @@ export default function UserManger(): JSX.Element {
     <UsersProvider>
       <div className="grid">
 
-        <Card size={Sizes.full}>
-          <p className="h1">User Manger</p>
+        <Card size={Sizes.full} noBackground>
+          <div className="flex-spaced">
+            <p className="h1">User Manger</p>
+            <Btn color={Color.Primary}>New</Btn>
+          </div>
         </Card>
 
         <UserAlert />

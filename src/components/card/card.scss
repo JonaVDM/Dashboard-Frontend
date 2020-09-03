@@ -113,4 +113,8 @@
       grid-column: span floor($xl-columns / 4);
     }
   }
+
+  &--no-background {
+    background-color: transparent;
+  }
 }

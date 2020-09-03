@@ -12,13 +12,16 @@ export enum Sizes {
 interface Props {
   size?: Sizes,
   children?: any,
+  noBackground?: boolean,
 }
 
-export function Card({size, children}: Props) {
+export function Card({ size, children, noBackground }: Props) {
   function className(): string {
-    let name = `card`;
-    if (size) name = name.concat(` ${name}--${size}`);
-    else name = name.concat(` ${name}--full`);
+    let cname = 'card'
+    let name = cname;
+    if (noBackground) name = name.concat(` ${cname}--no-background`);
+    if (size) name = name.concat(` ${cname}--${size}`);
+    else name = name.concat(` ${cname}--full`);
     return name;
   }
 
