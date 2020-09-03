@@ -2,12 +2,21 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import * as api from '../api';
 import userContext from '../userContext';
+import { Color } from '../components/components';
 
 interface Context {
   users: User[],
   filtered: User[],
-  setFiltered: any,
   tableColumns: string[],
+  alert?: Alert,
+  setFiltered: any,
+  setAlert: any,
+}
+
+interface Alert {
+  message: string,
+  color?: Color,
+  icon?: string
 }
 
 interface Props {
@@ -18,6 +27,7 @@ let defaultContext: Context = {
   users: [],
   filtered: [],
   setFiltered: () => { },
+  setAlert: () => { },
   tableColumns: ['_id', 'name', 'email', 'role.name'],
 }
 
@@ -30,11 +40,14 @@ export function UsersProvider({ children }: Props) {
   const [users, setUsers] = useState<User[]>([]);
   const [filtered, setFiltered] = useState<User[]>([]);
 
+  const [alert, setAlert] = useState<Alert>({ message: '' });
+
   async function loadUsers() {
     try {
       let data = await api.users.load(token);
       setUsers(data);
     } catch (e) {
+      setAlert({ message: e.message });
       console.log(e);
     }
   }
@@ -47,6 +60,8 @@ export function UsersProvider({ children }: Props) {
     users,
     filtered,
     setFiltered,
+    alert,
+    setAlert,
     tableColumns: defaultContext.tableColumns
   }
 
