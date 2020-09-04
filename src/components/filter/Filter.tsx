@@ -44,6 +44,7 @@ export function Filter({ data, onFilter, columns }: Props) {
   return (
     <TextField
       placeholder="filter"
+      value={filter}
       onChange={(ev) => setFilter(ev.target.value)}
     />
   );

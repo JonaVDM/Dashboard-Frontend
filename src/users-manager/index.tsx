@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, Sizes, Btn, Color } from '../components/components';
-import NewUser from './NewUser';
 import UserList from './UserList';
 import { UsersProvider } from './UsersContext';
 import UsersFilter from './UsersFilter';
 import UserAlert from './UserAlert';
+import UserEdit from './UserEdit';
 
 export default function UserManger(): JSX.Element {
   return (
@@ -20,14 +20,7 @@ export default function UserManger(): JSX.Element {
 
         <UserAlert />
 
-        {/* {message && (
-        <Alert color={color} onClose={() => setMessage('')}>{message}</Alert>
-      )} */}
-
-        {/* <Card size={Sizes.half}>
-        <p className="h2 pad-bottom">New</p>
-        <NewUser onError={onError} onMessage={onMessage} roles={roles} />
-      </Card> */}
+        <UserEdit />
 
         <Card size={Sizes.three_quarters}>
           <UserList />

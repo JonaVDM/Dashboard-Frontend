@@ -11,7 +11,7 @@ export function DropDown({ options, onChange, selected, label }: Props): JSX.Ele
   let list: JSX.Element[] = [];
 
   options.forEach(({ label, value }) => list.push(
-    <option className="drop-down__option" value={value} selected={selected === value}>{label}</option>
+    <option key={value} className="drop-down__option" value={value}>{label}</option>
   ));
 
   return (
@@ -20,7 +20,7 @@ export function DropDown({ options, onChange, selected, label }: Props): JSX.Ele
         <label className="drop-down__label">{label}</label>
       }
 
-      <select onChange={onChange} className="drop-down">
+      <select value={selected} onChange={onChange} className="drop-down">
         {list}
       </select>
     </div>

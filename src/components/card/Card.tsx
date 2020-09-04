@@ -13,12 +13,14 @@ interface Props {
   size?: Sizes,
   children?: any,
   noBackground?: boolean,
+  className?: string,
 }
 
-export function Card({ size, children, noBackground }: Props) {
-  function className(): string {
+export function Card({ size, children, noBackground, className }: Props) {
+  function classList(): string {
     let cname = 'card'
     let name = cname;
+    if (className) name = className.concat(` ${name}`);
     if (noBackground) name = name.concat(` ${cname}--no-background`);
     if (size) name = name.concat(` ${cname}--${size}`);
     else name = name.concat(` ${cname}--full`);
@@ -26,7 +28,7 @@ export function Card({ size, children, noBackground }: Props) {
   }
 
   return (
-    <div className={className()}>
+    <div className={classList()}>
       {children}
     </div>
   );

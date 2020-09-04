@@ -51,6 +51,7 @@ export default function Login() {
         <TextField
           type="text"
           label="Email"
+          value={email}
           onChange={(event) => setEmail(event.target.value)}
           onKeyPress={login}
         />
@@ -58,6 +59,7 @@ export default function Login() {
         <TextField
           type="password"
           label="Password"
+          value={password}
           onChange={(event) => setPassword(event.target.value)}
           onKeyPress={login}
           className="mar-bottom mar-top"

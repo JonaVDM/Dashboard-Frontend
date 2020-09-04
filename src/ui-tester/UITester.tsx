@@ -54,9 +54,9 @@ function UITester(): JSX.Element {
 
       <Card size={Sizes.full}>
         <p className="h2">TextFields</p>
-        <TextField label="Password" type="password" />
-        <TextField label="Email" type="email" />
-        <TextField label="Text" type="text" />
+        <TextField value="pizza" label="Password" type="password" />
+        <TextField value="email@mail.com" label="Email" type="email" />
+        <TextField value="" label="Text" type="text" />
       </Card>
 
       <Card size={Sizes.full}>

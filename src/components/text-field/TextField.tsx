@@ -7,9 +7,10 @@ interface Props {
   onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void,
   className?: string,
   placeholder?: string,
+  value: string,
 }
 
-export function TextField({ label, type, onChange, onKeyPress, className, placeholder }: Props) {
+export function TextField({ label, type, onChange, onKeyPress, className, placeholder, value }: Props) {
   return (
     <div className={`text-field__container ${className ?? ''}`}>
       {label &&
@@ -21,7 +22,9 @@ export function TextField({ label, type, onChange, onKeyPress, className, placeh
         onChange={onChange}
         onKeyPress={onKeyPress}
         placeholder={placeholder}
-        id={"input-" + label} />
+        id={"input-" + label}
+        value={value}
+      />
     </div>
   );
 }
