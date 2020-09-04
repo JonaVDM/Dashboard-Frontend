@@ -8,11 +8,12 @@ interface Context {
   roles: Role[],
   users: User[],
   filtered: User[],
+  setFiltered: any,
   tableColumns: string[],
   alert?: Alert,
-  setFiltered: any,
   setAlert: any,
-  mode: Mode
+  mode: Mode,
+  setMode: any,
 }
 
 interface Alert {
@@ -38,6 +39,7 @@ let defaultContext: Context = {
   setAlert: () => { },
   tableColumns: ['_id', 'name', 'email', 'role.name'],
   mode: Mode.create,
+  setMode: () => { },
 }
 
 const UsersContext = createContext<Context>(defaultContext);
@@ -52,6 +54,8 @@ export function UsersProvider({ children }: Props) {
   const [roles, setRoles] = useState<Role[]>([]);
 
   const [alert, setAlert] = useState<Alert>({ message: '' });
+
+  const [mode, setMode] = useState<Mode>(defaultContext.mode);
 
   async function loadUsers() {
     try {
@@ -84,7 +88,8 @@ export function UsersProvider({ children }: Props) {
     alert,
     setAlert,
     tableColumns: defaultContext.tableColumns,
-    mode: defaultContext.mode,
+    mode,
+    setMode,
   }
 
   return (

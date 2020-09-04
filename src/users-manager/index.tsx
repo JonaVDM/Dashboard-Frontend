@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Card, Sizes, Btn, Color } from '../components/components';
 import UserList from './UserList';
-import { UsersProvider } from './UsersContext';
+import usersContext, { UsersProvider, Mode } from './UsersContext';
 import UsersFilter from './UsersFilter';
 import UserAlert from './UserAlert';
 import UserEdit from './UserEdit';
 
 export default function UserManger(): JSX.Element {
+  let [modeString, setModeString] = useState('Pizza\'s Are quite nice');
+
+  let { mode } = useContext(usersContext);
+
+  useEffect(() => {
+    if (mode === Mode.create) setModeString('Add User');
+    if (mode === Mode.edit) setModeString('Edit User');
+  }, [mode]);
+
   return (
     <UsersProvider>
       <div className="grid">
@@ -20,7 +29,10 @@ export default function UserManger(): JSX.Element {
 
         <UserAlert />
 
-        <UserEdit />
+        <Card>
+          <p className="h2 pad-bottom">{modeString}</p>
+          <UserEdit />
+        </Card>
 
         <Card size={Sizes.three_quarters}>
           <UserList />

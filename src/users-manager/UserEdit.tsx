@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField, DropDown, Btn, Card, Color } from '../components/components';
+import { TextField, DropDown, Btn, Color } from '../components/components';
 import UsersContext from './UsersContext';
 
 export default function UserEdit() {
@@ -22,15 +22,13 @@ export default function UserEdit() {
 
 
   return (
-    <Card className="flex-space-around">
-      <div>
-        <TextField value={name} label="Name" onChange={(ev) => setName(ev.target.value)} />
-        <TextField value={email} label="Email" onChange={(ev) => setEmail(ev.target.value)} />
-        <TextField value={password} label="Password" type="password" onChange={(ev) => setPassword(ev.target.value)} />
-        <DropDown label="Role" options={options} selected={role} onChange={(ev) => { setRole(ev.target.value) }} />
-      </div>
+    <div>
+      <TextField value={name} label="Name" onChange={(ev) => setName(ev.target.value)} />
+      <TextField value={email} label="Email" onChange={(ev) => setEmail(ev.target.value)} />
+      <TextField value={password} label="Password" type="password" onChange={(ev) => setPassword(ev.target.value)} />
+      <DropDown label="Role" options={options} selected={role} onChange={(ev) => { setRole(ev.target.value) }} />
       <Btn color={Color.Success}>Create</Btn>
-    </Card>
+    </div>
   );
 }
 
