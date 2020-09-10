@@ -1,6 +1,14 @@
+import {
+  Btn,
+  Color,
+  DropDown,
+  DropDownOption,
+  TextField,
+} from '../components/components';
+import * as Api from '../api';
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField, DropDown, Btn, Color } from '../components/components';
-import UsersContext from './UsersContext';
+import UsersContext, { Mode } from './UsersContext';
+import userContext from '../userContext';
 
 export default function UserEdit() {
   let [name, setName] = useState('');
@@ -8,8 +16,11 @@ export default function UserEdit() {
   let [password, setPassword] = useState('');
   let [role, setRole] = useState('normal');
 
-  let { roles } = useContext(UsersContext);
-  let [options, setOptions] = useState<{ label: string, value: string }[]>([]);
+  let { roles, mode, setAlert } = useContext(UsersContext);
+  let { token } = useContext(userContext);
+  let [options, setOptions] = useState<DropDownOption[]>([]);
+
+  let [modeText, setModeText] = useState('Change');
 
 
   useEffect(() => {
@@ -20,14 +31,63 @@ export default function UserEdit() {
     setOptions(optionList);
   }, [roles]);
 
+  useEffect(() => {
+    if (mode === Mode.create) setModeText('Create');
+    if (mode === Mode.edit) setModeText('Change');
+  }, [mode]);
+
+  async function doAction() {
+    setAlert({ message: '' });
+
+    // Add new user
+    if (mode === Mode.create) {
+      try {
+        let data = await Api.users.add(token, name, password, email, role);
+        setAlert({ color: Color.Success, message: `Added User ${data.name}`, icon: 'add' });
+        setRole('');
+        setName('');
+        setEmail('');
+        setPassword('normal');
+      } catch (e) {
+        setAlert({ message: e.message, color: Color.Danger, icon: 'warning' });
+      }
+    }
+
+    // Edit user
+    if (mode === Mode.edit) {
+
+    }
+  }
 
   return (
     <div>
-      <TextField value={name} label="Name" onChange={(ev) => setName(ev.target.value)} />
-      <TextField value={email} label="Email" onChange={(ev) => setEmail(ev.target.value)} />
-      <TextField value={password} label="Password" type="password" onChange={(ev) => setPassword(ev.target.value)} />
-      <DropDown label="Role" options={options} selected={role} onChange={(ev) => { setRole(ev.target.value) }} />
-      <Btn color={Color.Success}>Create</Btn>
+      <TextField
+        value={name}
+        label="Name"
+        onChange={(ev) => setName(ev.target.value)}
+      />
+
+      <TextField
+        value={email}
+        label="Email"
+        onChange={(ev) => setEmail(ev.target.value)}
+      />
+
+      <TextField
+        value={password}
+        label="Password"
+        type="password"
+        onChange={(ev) => setPassword(ev.target.value)}
+      />
+
+      <DropDown
+        label="Role"
+        options={options}
+        selected={role}
+        onChange={(ev) => { setRole(ev.target.value) }}
+      />
+
+      <Btn color={Color.Success} onClick={doAction}>{modeText}</Btn>
     </div>
   );
 }

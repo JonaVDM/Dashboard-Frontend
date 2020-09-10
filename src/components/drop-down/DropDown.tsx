@@ -1,7 +1,12 @@
 import React from 'react';
 
+export interface DropDownOption {
+  label: string,
+  value: string
+}
+
 interface Props {
-  options: { label: string, value: string }[],
+  options: DropDownOption[],
   selected: string,
   onChange: (args: React.ChangeEvent<HTMLSelectElement>) => void,
   label?: string,
