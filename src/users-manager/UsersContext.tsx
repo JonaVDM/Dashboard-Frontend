@@ -14,6 +14,7 @@ interface Context {
   setAlert: any,
   mode: Mode,
   setMode: any,
+  addUser: (user: User) => void;
 }
 
 interface Alert {
@@ -40,6 +41,7 @@ let defaultContext: Context = {
   tableColumns: ['_id', 'name', 'email', 'role.name'],
   mode: Mode.create,
   setMode: () => { },
+  addUser: () => { },
 }
 
 const UsersContext = createContext<Context>(defaultContext);
@@ -75,6 +77,11 @@ export function UsersProvider({ children }: Props) {
     }
   }
 
+  function addUser(user: User) {
+    let userList = [...users, user] // Copy the list just incase
+    setUsers(userList);
+  }
+
   useEffect(() => {
     loadUsers();
     loadRoles();
@@ -90,6 +97,7 @@ export function UsersProvider({ children }: Props) {
     tableColumns: defaultContext.tableColumns,
     mode,
     setMode,
+    addUser,
   }
 
   return (

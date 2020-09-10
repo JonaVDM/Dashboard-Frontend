@@ -16,12 +16,11 @@ export default function UserEdit() {
   let [password, setPassword] = useState('');
   let [role, setRole] = useState('normal');
 
-  let { roles, mode, setAlert } = useContext(UsersContext);
+  let { roles, mode, setAlert, addUser } = useContext(UsersContext);
   let { token } = useContext(userContext);
   let [options, setOptions] = useState<DropDownOption[]>([]);
 
   let [modeText, setModeText] = useState('Change');
-
 
   useEffect(() => {
     let optionList = [];
@@ -48,6 +47,7 @@ export default function UserEdit() {
         setName('');
         setEmail('');
         setPassword('normal');
+        addUser(data);
       } catch (e) {
         setAlert({ message: e.message, color: Color.Danger, icon: 'warning' });
       }
