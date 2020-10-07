@@ -12,8 +12,6 @@ interface Context {
   tableColumns: string[],
   alert?: Alert,
   setAlert: any,
-  mode: Mode,
-  setMode: any,
   addUser: (user: User) => void;
 }
 
@@ -24,6 +22,7 @@ interface Alert {
 }
 
 export enum Mode {
+  none = 0,
   edit = 1,
   create = 2,
 }
@@ -39,8 +38,6 @@ let defaultContext: Context = {
   setFiltered: () => { },
   setAlert: () => { },
   tableColumns: ['_id', 'name', 'email', 'role.name'],
-  mode: Mode.create,
-  setMode: () => { },
   addUser: () => { },
 }
 
@@ -56,8 +53,6 @@ export function UsersProvider({ children }: Props) {
   const [roles, setRoles] = useState<Role[]>([]);
 
   const [alert, setAlert] = useState<Alert>({ message: '' });
-
-  const [mode, setMode] = useState<Mode>(defaultContext.mode);
 
   async function loadUsers() {
     try {
@@ -95,8 +90,6 @@ export function UsersProvider({ children }: Props) {
     alert,
     setAlert,
     tableColumns: defaultContext.tableColumns,
-    mode,
-    setMode,
     addUser,
   }
 

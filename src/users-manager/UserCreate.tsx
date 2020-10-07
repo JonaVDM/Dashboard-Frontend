@@ -7,20 +7,22 @@ import {
 } from '../components/components';
 import * as Api from '../api';
 import React, { useState, useContext, useEffect } from 'react';
-import UsersContext, { Mode } from './UsersContext';
+import UsersContext from './UsersContext';
 import userContext from '../userContext';
 
-export default function UserEdit() {
+interface Props { 
+  onClose: () => void,
+}
+
+export default function UserEdit({onClose}: Props) {
   let [name, setName] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
   let [role, setRole] = useState('normal');
 
-  let { roles, mode, setAlert, addUser } = useContext(UsersContext);
+  let { roles, setAlert, addUser } = useContext(UsersContext);
   let { token } = useContext(userContext);
   let [options, setOptions] = useState<DropDownOption[]>([]);
-
-  let [modeText, setModeText] = useState('Change');
 
   useEffect(() => {
     let optionList = [];
@@ -30,32 +32,19 @@ export default function UserEdit() {
     setOptions(optionList);
   }, [roles]);
 
-  useEffect(() => {
-    if (mode === Mode.create) setModeText('Create');
-    if (mode === Mode.edit) setModeText('Change');
-  }, [mode]);
-
   async function doAction() {
     setAlert({ message: '' });
-
-    // Add new user
-    if (mode === Mode.create) {
-      try {
-        let data = await Api.users.add(token, name, password, email, role);
-        setAlert({ color: Color.Success, message: `Added User ${data.name}`, icon: 'add' });
-        setRole('');
-        setName('');
-        setEmail('');
-        setPassword('normal');
-        addUser(data);
-      } catch (e) {
-        setAlert({ message: e.message, color: Color.Danger, icon: 'warning' });
-      }
-    }
-
-    // Edit user
-    if (mode === Mode.edit) {
-
+    try {
+      let data = await Api.users.add(token, name, password, email, role);
+      setAlert({ color: Color.Success, message: `Added User ${data.name}`, icon: 'add' });
+      setRole('');
+      setName('');
+      setEmail('');
+      setPassword('normal');
+      addUser(data);
+      onClose();
+    } catch (e) {
+      setAlert({ message: e.message, color: Color.Danger, icon: 'warning' });
     }
   }
 
@@ -87,7 +76,7 @@ export default function UserEdit() {
         onChange={(ev) => { setRole(ev.target.value) }}
       />
 
-      <Btn color={Color.Success} onClick={doAction}>{modeText}</Btn>
+      <Btn color={Color.Success} onClick={doAction}>Craete</Btn>
     </div>
   );
 }

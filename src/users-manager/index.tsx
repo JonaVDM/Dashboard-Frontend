@@ -1,21 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, Sizes, Btn, Color } from '../components/components';
 import UserList from './UserList';
-import usersContext, { UsersProvider, Mode } from './UsersContext';
+import { UsersProvider } from './UsersContext';
 import UsersFilter from './UsersFilter';
 import UserAlert from './UserAlert';
-import UserEdit from './UserEdit';
+import UserCreate from './UserCreate';
 
 export default function UserManger(): JSX.Element {
-  let [modeString, setModeString] = useState('Pizza\'s Are quite nice');
+  let [addActive, setAddActive] = useState(false);
 
-  let { mode } = useContext(usersContext);
-
-  useEffect(() => {
-    if (mode === Mode.create) setModeString('Add User');
-    if (mode === Mode.edit) setModeString('Edit User');
-  }, [mode]);
-
+  function changeAdd() { 
+    setAddActive(!addActive);
+  }
   return (
     <UsersProvider>
       <div className="grid">
@@ -23,24 +19,32 @@ export default function UserManger(): JSX.Element {
         <Card size={Sizes.full} noBackground>
           <div className="flex-spaced">
             <p className="h1">User Manger</p>
-            <Btn color={Color.Primary}>New</Btn>
+            { !addActive && 
+            <Btn color={Color.Primary} onClick={changeAdd}>New</Btn>
+            }
           </div>
         </Card>
 
         <UserAlert />
 
-        <Card>
-          <p className="h2 pad-bottom">{modeString}</p>
-          <UserEdit />
-        </Card>
+        {addActive
+          &&
+          <Card size={Sizes.full}>
+            <div className="flex-spaced pad-bottom">
+              <p className="h2">Add User</p>
+              <Btn color={Color.Danger} onClick={changeAdd}>Close</Btn>
+            </div>
+            <UserCreate onClose={changeAdd}/>
+          </Card>
+        }
 
-        <Card size={Sizes.three_quarters}>
-          <UserList />
-        </Card>
-
-        <Card size={Sizes.quarter}>
+        <Card size={Sizes.full}>
           <p className="h2 pad-bottom">Filter</p>
           <UsersFilter />
+        </Card>
+
+        <Card size={Sizes.full}>
+          <UserList />
         </Card>
       </div>
     </UsersProvider>
