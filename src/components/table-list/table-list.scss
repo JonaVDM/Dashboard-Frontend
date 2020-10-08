@@ -1,65 +1,35 @@
 .table-list {
-  width: 100%;
-  display: block;
+  display: grid;
 
-  @include media($md) {
-    display: table;
-  }
-
-  &__row {
-    display: block;
-    @include spacing(padding-top);
-    @include spacing(margin-bottom);
-
-    border-top: 1px solid $black;
-
-    &:first-child {
-      border: 0;
-      display: none;
-    }
-
-    &:nth-child(2) {
-      border: 0;
-      padding: 0;
-    }
-
-    @include media($md) {
-      display: table-row;
-
-      &:first-child {
-        display: table-row;
-      }
-
-      &:nth-child(2) {
-        border-top: 1px solid $black;
-      }
-    }
-  }
-
-  &__header {
-    text-align: start;
-    padding: 0 0 10px 0;
-    display: none;
-
-    @include media($md) {
-      display: table-cell;
-    }
+  @include media($sm-max) {
+    grid-template-columns: 1fr !important;
   }
 
   &__data {
-    padding: 10px 0;
-    font-weight: normal;
-    display: table-cell;
-    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid $black;
 
-    @include media($md) {
-      display: table-cell;
+    &-header {
+      font-weight: bold;
+      display: none;
+
+      @include media($md) {
+        display: block;
+      }
     }
 
     &-label {
+      font-weight: bold;
+
       @include media($md) {
         display: none;
       }
+    }
+
+    &--no-bottom-border {
+      border-bottom: 0;
+      padding-bottom: 0;
     }
   }
 }

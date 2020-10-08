@@ -9,7 +9,7 @@ import UserCreate from './UserCreate';
 export default function UserManger(): JSX.Element {
   let [addActive, setAddActive] = useState(false);
 
-  function changeAdd() { 
+  function changeAdd() {
     setAddActive(!addActive);
   }
   return (
@@ -19,8 +19,8 @@ export default function UserManger(): JSX.Element {
         <Card size={Sizes.full} noBackground>
           <div className="flex-spaced">
             <p className="h1">User Manger</p>
-            { !addActive && 
-            <Btn color={Color.Primary} onClick={changeAdd}>New</Btn>
+            {!addActive &&
+              <Btn color={Color.Primary} onClick={changeAdd}>New</Btn>
             }
           </div>
         </Card>
@@ -34,7 +34,7 @@ export default function UserManger(): JSX.Element {
               <p className="h2">Add User</p>
               <Btn color={Color.Danger} onClick={changeAdd}>Close</Btn>
             </div>
-            <UserCreate onClose={changeAdd}/>
+            <UserCreate onClose={changeAdd} />
           </Card>
         }
 

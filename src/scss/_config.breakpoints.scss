@@ -24,6 +24,7 @@ $xl-gutter: 40px;
 
 $xs: 'only screen and (min-width: #{$xs-screen})';
 $sm: 'only screen and (min-width: #{$sm-screen})';
+$sm-max: 'only screen and (max-width: #{$sm-screen})';
 $md: 'only screen and (min-width: #{$md-screen})';
 $lg: 'only screen and (min-width: #{$lg-screen})';
 $xl: 'only screen and (min-width: #{$xl-screen})';
