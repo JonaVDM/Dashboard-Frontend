@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Login from '../login/Login';
 import NoMatch from '../no-match/NoMatch';
-import pages from './routes';
+import pages from './Routes';
 import Dashbaord from '../dashboard/Dashbaord';
 import userContext from '../userContext';
 
