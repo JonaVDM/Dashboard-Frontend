@@ -13,8 +13,8 @@ $xl-columns: 12;
 $xs-spacing: 20px;
 $sm-spacing: 20px;
 $md-spacing: 30px;
-$lg-spacing: 50px;
-$xl-spacing: 60px;
+$lg-spacing: 30px;
+$xl-spacing: 40px;
 
 $xs-gutter: 10px;
 $sm-gutter: 10px;
@@ -24,6 +24,7 @@ $xl-gutter: 40px;
 
 $xs: 'only screen and (min-width: #{$xs-screen})';
 $sm: 'only screen and (min-width: #{$sm-screen})';
+$sm-max: 'only screen and (max-width: #{$sm-screen})';
 $md: 'only screen and (min-width: #{$md-screen})';
 $lg: 'only screen and (min-width: #{$lg-screen})';
 $xl: 'only screen and (min-width: #{$xl-screen})';

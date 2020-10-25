@@ -1,14 +1,10 @@
 import { Btn, Color } from '../../components/components';
-import { connect } from 'react-redux';
-import { logout } from '../../redux/actions';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { RootState } from '../../redux/reducers';
+import userContext from '../../userContext';
 
 interface Props {
   expanded: boolean,
-  logout: any,
-  permissions: string[]
 }
 
 interface Item {
@@ -27,7 +23,12 @@ interface Item {
   requirements?: string[],
 }
 
-function Sidebar({ expanded, logout, permissions }: Props): JSX.Element {
+export default function Sidebar({ expanded }: Props): JSX.Element {
+  let { user } = useContext(userContext);
+  let permissions: string[] = user ? user.role.permissions : [];
+
+  let { logout } = useContext(userContext);
+
   function className(): string {
     if (expanded) return 'sidebar sidebar--expanded';
     return 'sidebar';
@@ -92,18 +93,3 @@ function Sidebar({ expanded, logout, permissions }: Props): JSX.Element {
     </div>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    permissions: state.auth.role.permissions,
-  }
-}
-
-function mapDispatch(dispatch: any) {
-  return {
-    logout: async () =>
-      await dispatch(logout()),
-  }
-}
-
-export default connect(mapState, mapDispatch)(Sidebar);

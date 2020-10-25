@@ -1,17 +1,17 @@
 import { Btn, Color } from '../../components/components';
-import { connect } from 'react-redux';
-import { logout } from '../../redux/actions'
 import Hamburger from './Hamburger';
 import logo from '../../assets/logo.png';
-import React from 'react';
+import React, { useContext } from 'react';
+import userContext from '../../userContext';
 
 interface Props {
   onNavToggle: () => void,
   isActive: boolean,
-  logout: any
 }
 
-function Header({ onNavToggle, isActive, logout }: Props): JSX.Element {
+export default function Header({ onNavToggle, isActive }: Props): JSX.Element {
+  let { logout } = useContext(userContext);
+
   function signOut() {
     logout();
   }
@@ -30,12 +30,3 @@ function Header({ onNavToggle, isActive, logout }: Props): JSX.Element {
     </div>
   );
 }
-
-function mapDispatch(dispatch: any) {
-  return {
-    logout: async () =>
-      await dispatch(logout()),
-  }
-}
-
-export default connect(null, mapDispatch)(Header);

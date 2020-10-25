@@ -1,100 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { TextField } from '../components';
+import React from 'react';
+import { TableRow } from './TableRow';
 
 interface Props {
   columns: string[],
   selector: string,
-  data: any[]
+  data: any[],
+  canEdit?: boolean,
+  canDelete?: boolean,
+  onDelete?: (id: string) => void
 }
 
-export function TableList({ columns, selector, data }: Props): JSX.Element {
+export function TableList({ columns, selector, data, canEdit, canDelete, onDelete }: Props): JSX.Element {
+  // Make the header list with all the fields
   let header: JSX.Element[] = [];
-  let items: JSX.Element[] = [];
-
-  let [filtered, setFiltered] = useState<any[]>([]);
-  let [filter, setFilter] = useState<string>('');
-
-  // The filter
-  useEffect(() => {
-    // Reset the filter
-    if (filter === '') return setFiltered(data);
-
-    // The end result of the filter
-    let display = [];
-    for (const row of data) {
-      for (const column of columns) {
-        let value = row[column];
-        if (column.includes('.')) {
-          let subKeys = column.split('.');
-          value = row[subKeys[0]][subKeys[1]];
-        }
-
-        // If the value is an object it will be skipped
-        if (typeof value === 'object') continue;
-
-        // Filter the value in it's string form
-        if (value.toString().includes(filter)) {
-          display.push(row);
-          break;
-        }
-      }
-    }
-
-    // Set the items to be displayed.
-    setFiltered(display);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, data]);
-
   for (let key of columns) {
     header.push(
-      <th className="table-list__header" key={key}>{key}</th>
+      <th
+        className="table-list__header"
+        key={key}>
+        {key}
+      </th>
     );
   }
 
-  for (let item of filtered) {
-    // The row that will be added to the table
-    let row: JSX.Element[] = [];
-
-    // Loop through the keys so the cells will appear in the right order
-    for (let key of columns) {
-
-      // If the type happens to be an object, use the name of that object
-      let value: string = item[key];
-      if (key.includes('.')) {
-        let subKeys = key.split('.');
-        value = item[subKeys[0]][subKeys[1]];
-      }
-
-      let classNameColumn = 'table-list__data';
-      if (key === selector) {
-        classNameColumn = classNameColumn.concat(` ${classNameColumn}--selector`);
-      }
-
-      // Push the data onto the row
-      row.push(<td className={classNameColumn} key={`${key}-${value}`}>
-        <span className="table-list__data-label">{key}: </span>
-        {value}
-      </td>);
-    }
-
-    // Push the row onto the
-    items.push(<tr className="table-list__row" key={`${item[selector]}-row`}>{row}</tr>);
+  // Generate the rows to display
+  let rows: JSX.Element[] = [];
+  for (let row of data) {
+    rows.push(
+      <TableRow
+        headers={columns}
+        data={row}
+        key={row._id}
+        canEdit={canEdit}
+        canDelete={canDelete}
+        onDelete={onDelete}
+      />
+    );
   }
 
   return (
-    <div>
-      <TextField
-        placeholder="filter"
-        className="pad-bottom"
-        onChange={(ev) => setFilter(ev.target.value)}
-      />
-
-      <table className="table-list">
-        <tr className="table-list__row">
+    <table className="table-list">
+      <thead>
+        <tr>
           {header}
         </tr>
-        {items}
-      </table>
-    </div>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
   );
 }

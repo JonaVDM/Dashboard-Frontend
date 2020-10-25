@@ -1,65 +1,30 @@
 .table-list {
-  width: 100%;
-  display: block;
+  &__header {
+    text-align: left;
+    padding-bottom: 5px;
+  }
 
-  @include media($md) {
-    display: table;
+  &__button {
+    margin: 3px 5px 3px 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   &__row {
-    display: block;
-    @include spacing(padding-top);
-    @include spacing(margin-bottom);
+    border-bottom: 1px solid $black;
 
-    border-top: 1px solid $black;
-
-    &:first-child {
-      border: 0;
-      display: none;
-    }
-
-    &:nth-child(2) {
-      border: 0;
-      padding: 0;
-    }
-
-    @include media($md) {
-      display: table-row;
-
-      &:first-child {
-        display: table-row;
-      }
-
-      &:nth-child(2) {
-        border-top: 1px solid $black;
-      }
-    }
-  }
-
-  &__header {
-    text-align: start;
-    padding: 0 0 10px 0;
-    display: none;
-
-    @include media($md) {
-      display: table-cell;
+    &:last-child {
+      border-bottom: 0;
     }
   }
 
   &__data {
-    padding: 10px 0;
-    font-weight: normal;
-    display: table-cell;
-    display: block;
+    padding-right: 10px;
 
-    @include media($md) {
-      display: table-cell;
-    }
-
-    &-label {
-      @include media($md) {
-        display: none;
-      }
+    &:last-child {
+      padding-right: 0;
     }
   }
 }

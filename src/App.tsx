@@ -1,28 +1,11 @@
 import React from 'react';
+import Routes from './routes/RouterElement';
+import { UserProvider } from './userContext';
 
-import Routes from './routes/Routes';
-
-import { loadToken, loadUser } from './redux/actions';
-import { connect } from 'react-redux';
-
-interface Props {
-  loadToken: any,
-  loadUser: any
-}
-
-function App({ loadToken, loadUser }: Props) {
-  loadToken();
-  loadUser();
+export default function App() {
   return (
-    <Routes />
+    <UserProvider>
+      <Routes />
+    </UserProvider>
   );
 }
-
-function mapDispatch(dispatch: any) {
-  return {
-    loadToken: () => dispatch(loadToken()),
-    loadUser: () => dispatch(loadUser())
-  }
-}
-
-export default connect(null, mapDispatch)(App);

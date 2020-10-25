@@ -1,10 +1,11 @@
 .grid {
   width: 100%;
+  max-width: $grid-max-width;
   display: grid;
   grid-template-columns: repeat($xs-columns, 1fr);
   gap: $xs-gutter;
 
-  // overflow: scroll;
+  margin: 0 auto; // overflow: scroll;
 
   @include media($sm) {
     grid-template-columns: repeat($sm-columns, 1fr);

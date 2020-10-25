@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { RootState } from '../redux/reducers';
-import { login } from '../redux/actions';
+import React, { useState, useContext } from 'react';
 import logo from '../assets/logo.png';
 import { TextField, Btn, Color } from '../components/components';
+import * as api from '../api';
+import userContext from '../userContext';
 
-interface Props {
-  requesting: boolean,
-  signIn: any
-}
-
-function Login({ requesting, signIn }: Props) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+
+  const [requesting, setRequesting] = useState(false);
+
+  let { saveToken } = useContext(userContext);
 
   function disabled(): boolean {
     if (requesting) return true;
@@ -26,11 +24,15 @@ function Login({ requesting, signIn }: Props) {
     if (email === '' || password === '') return;
 
     setMessage('');
+    setRequesting(true);
 
-    let data = await signIn(email, password);
+    let data = await api.auth.login(email, password);
 
-    if (!data.login) {
+    if (!data.token) {
       setMessage(data.message);
+      setRequesting(false);
+    } else {
+      saveToken(data.token);
     }
   }
 
@@ -49,6 +51,7 @@ function Login({ requesting, signIn }: Props) {
         <TextField
           type="text"
           label="Email"
+          value={email}
           onChange={(event) => setEmail(event.target.value)}
           onKeyPress={login}
         />
@@ -56,6 +59,7 @@ function Login({ requesting, signIn }: Props) {
         <TextField
           type="password"
           label="Password"
+          value={password}
           onChange={(event) => setPassword(event.target.value)}
           onKeyPress={login}
           className="mar-bottom mar-top"
@@ -66,18 +70,3 @@ function Login({ requesting, signIn }: Props) {
     </div>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    requesting: state.auth.requesting,
-  }
-};
-
-function mapDispatch(dispatch: any) {
-  return {
-    signIn: async (email: string, password: string) =>
-      await dispatch(login(email, password))
-  }
-}
-
-export default connect(mapState, mapDispatch)(Login);

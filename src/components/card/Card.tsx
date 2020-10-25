@@ -12,18 +12,23 @@ export enum Sizes {
 interface Props {
   size?: Sizes,
   children?: any,
+  noBackground?: boolean,
+  className?: string,
 }
 
-export function Card({size, children}: Props) {
-  function className(): string {
-    let name = `card`;
-    if (size) name = name.concat(` ${name}--${size}`);
-    else name = name.concat(` ${name}--full`);
+export function Card({ size, children, noBackground, className }: Props) {
+  function classList(): string {
+    let cname = 'card'
+    let name = cname;
+    if (className) name = className.concat(` ${name}`);
+    if (noBackground) name = name.concat(` ${cname}--no-background`);
+    if (size) name = name.concat(` ${cname}--${size}`);
+    else name = name.concat(` ${cname}--full`);
     return name;
   }
 
   return (
-    <div className={className()}>
+    <div className={classList()}>
       {children}
     </div>
   );

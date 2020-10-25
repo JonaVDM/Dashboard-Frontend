@@ -1,0 +1,11 @@
+.drop-down {
+  @extend .text-field;
+
+  &__container {
+    @extend .text-field__container;
+  }
+
+  &__label {
+    @extend .text-field__label;
+  }
+}

@@ -1,0 +1,21 @@
+.bg {
+  &-primary {
+    background-color: $primary;
+  }
+
+  &-danger {
+    background-color: $danger;
+  }
+
+  &-success {
+    background-color: $success;
+  }
+
+  &-default {
+    background-color: $default;
+  }
+
+  &-secondary {
+    background-color: $secondary;
+  }
+}

@@ -1,25 +1,10 @@
-import React from 'react';
-import Dashboard from '../dashboard/Dashbaord';
-import { RootState } from '../redux/reducers';
-import { connect } from 'react-redux';
+import React, { useContext } from 'react';
+import userContext from '../userContext';
 
-interface Props {
-  name: string
-}
-
-function Home({ name }: Props) {
+export default function Home() {
+  let { user } = useContext(userContext);
 
   return (
-    <Dashboard>
-      <h1>Hello {name}</h1>
-    </Dashboard>
+    <h1>Hello {user ? user.name : ''}</h1>
   );
 }
-
-function mapState(state: RootState) {
-  return {
-    name: state.auth.user.name
-  }
-}
-
-export default connect(mapState)(Home);
