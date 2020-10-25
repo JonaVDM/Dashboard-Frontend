@@ -1,35 +1,30 @@
 .table-list {
-  display: grid;
+  &__header {
+    text-align: left;
+    padding-bottom: 5px;
+  }
 
-  @include media($sm-max) {
-    grid-template-columns: 1fr !important;
+  &__button {
+    margin: 3px 5px 3px 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__row {
+    border-bottom: 1px solid $black;
+
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 
   &__data {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid $black;
+    padding-right: 10px;
 
-    &-header {
-      font-weight: bold;
-      display: none;
-
-      @include media($md) {
-        display: block;
-      }
-    }
-
-    &-label {
-      font-weight: bold;
-
-      @include media($md) {
-        display: none;
-      }
-    }
-
-    &--no-bottom-border {
-      border-bottom: 0;
-      padding-bottom: 0;
+    &:last-child {
+      padding-right: 0;
     }
   }
 }
