@@ -12,7 +12,9 @@ interface Context {
   tableColumns: string[],
   alert?: Alert,
   setAlert: any,
-  addUser: (user: User) => void;
+  addUser: (user: User) => void,
+  removeUser: (id: string) => void,
+  findUser: (id: string) => User | undefined
 }
 
 interface Alert {
@@ -39,6 +41,8 @@ let defaultContext: Context = {
   setAlert: () => { },
   tableColumns: ['_id', 'name', 'email', 'role.name'],
   addUser: () => { },
+  removeUser: () => { },
+  findUser: () => { return undefined },
 }
 
 const UsersContext = createContext<Context>(defaultContext);
@@ -77,6 +81,21 @@ export function UsersProvider({ children }: Props) {
     setUsers(userList);
   }
 
+  function removeUser(id: string) {
+    let userList = [...users]; // Copy the list just incase
+    userList = userList.filter((user) => {
+      return user._id !== id;
+    });
+
+    setUsers(userList);
+  };
+
+  function findUser(id: string) {
+    let user = users.find((user) => user._id === id);
+
+    return user;
+  }
+
   useEffect(() => {
     loadUsers();
     loadRoles();
@@ -91,6 +110,8 @@ export function UsersProvider({ children }: Props) {
     setAlert,
     tableColumns: defaultContext.tableColumns,
     addUser,
+    removeUser,
+    findUser
   }
 
   return (

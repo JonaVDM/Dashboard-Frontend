@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { TableList } from '../components/components';
 import UsersContext from './UsersContext';
 import UserContext from '../userContext';
+import { users } from '../api'
 
 export default function UserList(): JSX.Element {
-  let { filtered, tableColumns } = useContext(UsersContext);
-  let { user } = useContext(UserContext);
+  let { filtered, tableColumns, removeUser, findUser } = useContext(UsersContext);
+  let { user, token } = useContext(UserContext);
 
   let canEdit = false;
   let canDelete = false;
@@ -24,12 +25,23 @@ export default function UserList(): JSX.Element {
     }
   }
 
+  function onDelete(id: string) {
+    let user = findUser(id);
+
+    removeUser(id);
+
+    if (user) {
+      users.remove(token, user.name);
+    }
+  }
+
   return (
     <TableList
       columns={tableColumns}
       selector="name"
       data={filtered}
       canEdit={canEdit}
-      canDelete={canDelete} />
+      canDelete={canDelete}
+      onDelete={onDelete} />
   );
 }

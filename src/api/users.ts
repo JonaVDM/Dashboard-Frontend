@@ -40,8 +40,19 @@ async function add(token: string, name: string, password: string, email: string,
   return data.user;
 }
 
+async function remove(token: string, username: string) {
+  const response = await fetch(`${baseUrl}/${username}`, {
+    method: 'DELETE',
+    headers: {
+      'x-token': token,
+    },
+  });
+
+  return (await response.json()).delete
+}
+
 const users = {
-  load, add,
+  load, add, remove
 }
 
 export { users };
